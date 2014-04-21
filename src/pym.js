@@ -40,8 +40,15 @@ var pym = (function() {
             // Calculate the width of this element.
             var width = this.el.offsetWidth.toString();
 
-            // Create an iframe element attached to the document.
-            var node = document.createElement("iframe");
+            var node;
+            // Use existing iframe
+            if (this.el.nodeName == 'IFRAME') {
+                node = this.el;
+                if (!this.url) this.url = node.src;
+            } else {
+                // Create an iframe element attached to the document.
+                node = document.createElement("iframe");
+            }
 
             // Save fragment id
             var hash = '';
@@ -69,8 +76,8 @@ var pym = (function() {
             node.setAttribute('marginheight', '0');
             node.setAttribute('frameborder', '0');
 
-            // Append the iframe to our element.
-            this.el.appendChild(node);
+            // Append the iframe to our element, unless it was created first
+            if (this.el != node) this.el.appendChild(node);
 
             // Add an event listener that will handle redrawing the child on resize.
             var that = this;
@@ -106,7 +113,11 @@ var pym = (function() {
             var height = parseInt(match[2]);
 
             // Update the height.
-            this.el.getElementsByTagName('iframe')[0].setAttribute('height', height + 'px');
+            if (this.el.nodeName == 'IFRAME') {
+                this.el.setAttribute('height', height + 'px');
+            } else {
+                this.el.getElementsByTagName('iframe')[0].setAttribute('height', height + 'px');
+            }
         }
 
         this.sendWidthToChild = function() {
@@ -118,7 +129,11 @@ var pym = (function() {
             var width = this.el.offsetWidth.toString();
 
             // Pass the width out to the child so it can compute the height.
-            this.el.getElementsByTagName('iframe')[0].contentWindow.postMessage('responsiveparent ' + this.id + ' ' + width, '*');
+            if (this.el.nodeName == 'IFRAME') {
+                this.el.contentWindow.postMessage('responsiveparent ' + this.id + ' ' + width, '*');
+            } else {
+                this.el.getElementsByTagName('iframe')[0].contentWindow.postMessage('responsiveparent ' + this.id + ' ' + width, '*');
+            }
         }
 
         // Add any overrides to settings coming from config.
