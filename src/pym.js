@@ -330,6 +330,14 @@
         this.messageRegex = null;
         this.messageHandlers = {};
 
+        try {
+            var bodyStyle = window.getComputedStyle(document.getElementsByTagName('body')[0])
+            if (bodyStyle.position != 'static') {
+                console.warn('The <body> element style for child iframes should remain static for pym.js to size them properly.');
+            }
+        }
+        catch(e) { }
+
         /**
          * Bind a callback to a given messageType from the child.
          *
