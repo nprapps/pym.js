@@ -318,7 +318,7 @@
           if ('pushState' in history) {
             if (hash === '#') {
               hash = window.location.pathname + window.location.search;
-            };
+            }
             history.pushState('pym:' + this.id + ':' + hash, null, hash);
           }
         });
