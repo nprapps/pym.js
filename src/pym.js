@@ -161,6 +161,9 @@
                 hash = this.url.substring(hashIndex, this.url.length);
                 this.url = this.url.substring(0, hashIndex);
             }
+            else {
+              hash = window.location.hash;
+            }
 
             // If the URL contains querystring bits, use them.
             // Otherwise, just create a set of valid params.
@@ -309,6 +312,16 @@
 
         // Construct the iframe in the container element.
         this._constructIframe();
+
+        // Attach message handlers
+        this.onMessage('setFragmentId', function(hash) {
+          if ('pushState' in history) {
+            if (hash === '#') {
+              hash = window.location.pathname + window.location.search;
+            }
+            history.pushState('pym:' + this.id + ':' + hash, null, hash);
+          }
+        });
 
         return this;
     };
