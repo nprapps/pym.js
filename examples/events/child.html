@@ -14,7 +14,9 @@
         var pymChild = new pym.Child();
 
         function onClick(e) {
-            e.preventDefault();
+            if(event.preventDefault) event.preventDefault();
+            event.returnValue = false;
+            
             pymChild.sendMessage('child-click', 'Child clicked!');
         }
 
@@ -23,7 +25,12 @@
             pymChild.sendHeight();
         });
 
-        document.getElementById('test').addEventListener('click', onClick);
+        var el = document.getElementById('test');
+        if(el.addEventListener) {
+            el.addEventListener('click', onClick);
+        } else {
+            el.attachEvent('onclick', onClick); 
+        }
 
     </script>
 </body>
