@@ -316,7 +316,7 @@
         // Add a listener for processing messages from the child.
         var that = this;
 
-        /*window.addEventListener*/_addEventListener('message', function(e) {
+        _addEventListener('message', function(e) {
             return that._processMessage(e);
         }, false);
 
