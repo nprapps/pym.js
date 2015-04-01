@@ -22,7 +22,7 @@ Javascript can be linted with [jshint](http://jshint.com/):
 grunt jshint
 ```
 
-Uniminifiedd source can be regenerated with:
+Uniminified source can be regenerated with:
 
 ```
 grunt concat
@@ -39,6 +39,8 @@ API documention can be generated with [jsdoc](https://github.com/jsdoc3/jsdoc):
 ```
 grunt jsdoc
 ```
+
+The release process is documented [on the wiki](https://github.com/nprapps/pym.js/wiki/Release-Process).
 
 ## License & Credits
 
