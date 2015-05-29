@@ -486,7 +486,11 @@
             */
 
             // Get the child's height.
-            var height = document.getElementsByTagName('body')[0].offsetHeight.toString();
+            var height = "0";
+            var body = document.getElementsByTagName('body')[0];
+            if(body) {
+                height = body.offsetHeight.toString();
+            }
 
             // Send the height to the parent.
             that.sendMessage('height', height);

@@ -1,4 +1,4 @@
-/*! pym.js - v0.4.2 - 2015-04-24 */
+/*! pym.js - v0.4.3 - 2015-05-29 */
 /*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -177,7 +177,11 @@
             }
 
             // Append the initial width as a querystring parameter, and the fragment id
-            this.iframe.src = this.url + 'initialWidth=' + width + '&childId=' + this.id + hash;
+            this.iframe.src = this.url +
+                'initialWidth=' + width +
+                '&childId=' + this.id +
+                '&parentUrl=' + encodeURIComponent(window.location.href) +
+                hash;
 
             // Set some attributes to this proto-iframe.
             this.iframe.setAttribute('width', '100%');
@@ -344,6 +348,7 @@
     lib.Child = function(config) {
         this.parentWidth = null;
         this.id = null;
+        this.parentUrl = null;
 
         this.settings = {
             renderCallback: null,
@@ -354,7 +359,7 @@
         this.messageRegex = null;
         this.messageHandlers = {};
 
-        // ensure a config object
+        // Ensure a config object
         config = (config || {});
 
         /**
@@ -482,7 +487,11 @@
             */
 
             // Get the child's height.
-            var height = document.getElementsByTagName('body')[0].offsetHeight.toString();
+            var height = "0";
+            var body = document.getElementsByTagName('body')[0];
+            if(body) {
+                height = body.offsetHeight.toString();
+            }
 
             // Send the height to the parent.
             that.sendMessage('height', height);
@@ -516,6 +525,9 @@
 
         // Get the initial width from a URL parameter.
         var width = parseInt(_getParameterByName('initialWidth'));
+
+        // Get the url of the parent frame
+        this.parentUrl = _getParameterByName('parentUrl');
 
         // Bind the required message handlers
         this.onMessage('width', this._onWidthMessage);
