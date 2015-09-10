@@ -187,6 +187,8 @@
             this.iframe.setAttribute('scrolling', 'no');
             this.iframe.setAttribute('marginheight', '0');
             this.iframe.setAttribute('frameborder', '0');
+            this.iframe.setAttribute('id', this.id + "-iframe");
+            this.iframe.setAttribute('name', this.id + "-iframe-name");
 
             // Append the iframe to our element.
             this.el.appendChild(this.iframe);
