@@ -1,4 +1,4 @@
-/*! pym.js - v0.4.4 - 2015-07-16 */
+/*! pym.js - v0.4.6 - 2015-09-10 */
 /*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -188,6 +188,8 @@
             this.iframe.setAttribute('scrolling', 'no');
             this.iframe.setAttribute('marginheight', '0');
             this.iframe.setAttribute('frameborder', '0');
+            this.iframe.setAttribute('id', this.id + "_iframe");
+            this.iframe.setAttribute('name', this.id + "_iframe_name");
 
             // Append the iframe to our element.
             this.el.appendChild(this.iframe);
