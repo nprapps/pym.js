@@ -328,7 +328,10 @@
          * @param {String} message The message data to send.
          */
         this.sendMessage = function(messageType, message) {
-            this.el.getElementsByTagName('iframe')[0].contentWindow.postMessage(_makeMessage(this.id, messageType, message), '*');
+            var el = this.el.getElementsByTagName('iframe')[0];
+            if(el.contentWindow != null){
+                el.contentWindow.postMessage(_makeMessage(this.id, messageType, message), '*');
+            }
         };
 
         /**
