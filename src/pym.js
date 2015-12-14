@@ -158,6 +158,9 @@
             // Create an iframe element attached to the document.
             this.iframe = document.createElement('iframe');
 
+            // Replace hex with '&' to preserve URL parameters.
+            this.url = this.url.replace(/&#038;/g, "&");
+
             // Save fragment id
             var hash = '';
             var hashIndex = this.url.indexOf('#');
