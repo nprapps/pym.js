@@ -496,7 +496,7 @@
          */
         this._poll = function() {
             // rAF polyfill
-            window.requestAnimationFrame = window.requestAnimationFrame ||
+            var raf = window.requestAnimationFrame ||
                 window.webkitRequestAnimationFrame ||
                 window.mozRequestAnimationFrame ||
                 window.msRequestAnimationFrame ||
@@ -520,7 +520,7 @@
                     this.sendHeight();
                 }
                 // loop this forever with rAF
-                requestAnimationFrame(pollHeight);
+                raf(pollHeight);
             }.bind(this);
 
             pollHeight();
