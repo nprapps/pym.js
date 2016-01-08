@@ -489,6 +489,44 @@
         };
 
         /**
+         * Use rAF to automatically send height on change
+         *
+         * @memberof Child.prototype
+         * @method _poll
+         */
+        this._poll = function() {
+            // rAF polyfill
+            window.requestAnimationFrame = window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function(callback) { return setTimeout(callback, 1000 / 60); };
+            
+            // store for convenience
+            var height = {previous: 0, current: 0};
+            var bodyElement = document.getElementsByTagName('body')[0];
+
+            var pollHeight = function() {
+                // set current height to that of container
+                height.current = bodyElement.offsetHeight;
+
+                // if it has changed the send new height to parent
+                if (height.current !== height.previous) {
+
+                    // store current height to compare next time
+                    height.previous = height.current;
+
+                    // and notify pym parent
+                    this.sendHeight();
+                }
+                // loop this forever with rAF
+                requestAnimationFrame(pollHeight);
+            }.bind(this);
+
+            pollHeight();
+        };
+
+        /**
          * Send a message to the the Parent.
          *
          * @memberof Child.prototype
@@ -570,9 +608,9 @@
         // Send the initial height to the parent.
         this.sendHeight();
 
-        // If we're configured to poll, create a setInterval to handle that.
+        // If we're configured to poll, setup polling
         if (this.settings.polling) {
-            window.setInterval(this.sendHeight, this.settings.polling);
+            this._poll();
         }
 
         return this;
