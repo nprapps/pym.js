@@ -1,4 +1,4 @@
-/*! pym.js - v0.4.1 - 2014-12-12 */
+/*! pym.js - v0.4.1 - 2016-03-22 */
 /*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -54,6 +54,15 @@
         return true;
     };
 
+    var _addEventListener = function(on, fn, useCapture) {
+        if(document.addEventListener) {
+            window.addEventListener(on, fn, useCapture);
+        } else {
+            on = 'on' + on;
+            window.attachEvent(on, fn);
+        }
+    }
+
     /**
      * Construct a message to send between frames.
      *
@@ -89,14 +98,15 @@
      * @method _autoInit
      */
     var _autoInit = function() {
-        var elements = document.querySelectorAll(
-            '[data-pym-src]:not([data-pym-auto-initialized])'
-        );
+        var elements = document.querySelectorAll('[data-pym-src]');
 
         var length = elements.length;
 
         for (var idx = 0; idx < length; ++idx) {
             var element = elements[idx];
+            if(element.getAttribute('data-pym-auto-initialized') !== null) {
+                continue;
+            }
 
             /*
             * Mark automatically-initialized elements so they are not
@@ -187,7 +197,7 @@
 
             // Add an event listener that will handle redrawing the child on resize.
             var that = this;
-            window.addEventListener('resize', function() {
+            _addEventListener('resize', function() {
                 that.sendWidth();
             });
         };
@@ -306,7 +316,8 @@
 
         // Add a listener for processing messages from the child.
         var that = this;
-        window.addEventListener('message', function(e) {
+
+        _addEventListener('message', function(e) {
             return that._processMessage(e);
         }, false);
 
@@ -481,7 +492,7 @@
 
         // Set up a listener to handle any incoming messages.
         var that = this;
-        window.addEventListener('message', function(e) {
+        _addEventListener('message', function(e) {
             that._processMessage(e);
         }, false);
 
