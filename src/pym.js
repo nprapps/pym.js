@@ -376,6 +376,13 @@
     lib.Child = function(config) {
         this.parentWidth = null;
         this.id = null;
+
+        /**
+         * The URL of the parent page from window.location.href.
+         *
+         * @memberof Child.prototype
+         * @member {String} parentUrl
+         */
         this.parentUrl = null;
 
         this.settings = {
