@@ -88,11 +88,14 @@
      * @method _autoInit
      */
     var _autoInit = function() {
+        var parent;
+        
         var elements = document.querySelectorAll(
             '[data-pym-src]:not([data-pym-auto-initialized])'
         );
 
-        var length = elements.length;
+        var autoloaded = [];
+        var length     = elements.length;
 
         for (var idx = 0; idx < length; ++idx) {
             var element = elements[idx];
@@ -117,8 +120,14 @@
                config.xdomain = xdomain;
             }
 
-            new lib.Parent(element.id, src, config);
+            parent = new lib.Parent(element.id, src, config);
+            
+            autoloaded.push(parent);
+            autoloaded[element.id] = parent;
         }
+        
+        if (autoloaded.length)
+            lib.autoloaded = autoloaded;
     };
 
     /**
