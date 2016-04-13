@@ -179,6 +179,7 @@
             this.iframe.src = this.url +
                 'initialWidth=' + width +
                 '&childId=' + this.id +
+                '&parentTitle=' + encodeURIComponent(document.title) +
                 '&parentUrl=' + encodeURIComponent(window.location.href) +
                 hash;
 
@@ -376,6 +377,14 @@
     lib.Child = function(config) {
         this.parentWidth = null;
         this.id = null;
+
+        /**
+         * The title of the parent page from document.title.
+         *
+         * @memberof Child.prototype
+         * @member {String} parentTitle
+         */
+        this.parentTitle = null;
         this.parentUrl = null;
 
         this.settings = {
@@ -551,6 +560,9 @@
 
         // Get the initial width from a URL parameter.
         var width = parseInt(_getParameterByName('initialWidth'));
+
+        // Get the title of the parent frame
+        this.parentTitle = _getParameterByName('parentTitle');
 
         // Get the url of the parent frame
         this.parentUrl = _getParameterByName('parentUrl');
