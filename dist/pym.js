@@ -1,4 +1,4 @@
-/*! pym.js - v0.4.6 - 2015-09-29 */
+/*! pym.js - v0.4.6 - 2016-05-18 */
 /*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -146,6 +146,8 @@
         // ensure a config object
         config = (config || {});
 
+
+
         /**
          * Construct the iframe.
          *
@@ -195,6 +197,30 @@
 
             // Append the iframe to our element.
             this.el.appendChild(this.iframe);
+
+            // Add an event listener that will handle redrawing the child on resize.
+            window.addEventListener('resize', this._onResize);
+        };
+
+        /**
+        * Registers an existing iFrame with srcdoc content
+        *
+        * @memberof Parent.prototype
+        * @method _constructIframe
+        */
+        this._srcdocIframe = function() {
+            
+            this.iframe = this.el.getElementsByTagName('iframe')[0];
+
+            // Set some attributes to this proto-iframe.
+            this.iframe.setAttribute('width', '100%');
+            this.iframe.setAttribute('scrolling', 'no');
+            this.iframe.setAttribute('marginheight', '0');
+            this.iframe.setAttribute('frameborder', '0');
+
+            if (this.settings.title) {
+                this.iframe.setAttribute('title', this.settings.title);
+            }
 
             // Add an event listener that will handle redrawing the child on resize.
             window.addEventListener('resize', this._onResize);
@@ -362,8 +388,12 @@
         // Add a listener for processing messages from the child.
         window.addEventListener('message', this._processMessage, false);
 
-        // Construct the iframe in the container element.
-        this._constructIframe();
+        // Construct the iframe in the container element or register existing iFrame.
+        if (typeof config.srcdoc === 'undefined' || config.srcdoc === false) {
+            this._constructIframe();
+        } else {
+            this._srcdocIframe();
+        }
 
         return this;
     };
@@ -548,13 +578,14 @@
 
         // Identify what ID the parent knows this child as.
         this.id = _getParameterByName('childId') || config.id;
+
         this.messageRegex = new RegExp('^pym' + MESSAGE_DELIMITER + this.id + MESSAGE_DELIMITER + '(\\S+)' + MESSAGE_DELIMITER + '(.+)$');
 
         // Get the initial width from a URL parameter.
-        var width = parseInt(_getParameterByName('initialWidth'));
+        var width = parseInt(_getParameterByName('initialWidth')) || config.width;
 
         // Get the url of the parent frame
-        this.parentUrl = _getParameterByName('parentUrl');
+        this.parentUrl = _getParameterByName('parentUrl') || config.url;
 
         // Bind the required message handlers
         this.onMessage('width', this._onWidthMessage);
