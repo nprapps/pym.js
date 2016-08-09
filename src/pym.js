@@ -187,6 +187,7 @@
             this.iframe.setAttribute('scrolling', 'no');
             this.iframe.setAttribute('marginheight', '0');
             this.iframe.setAttribute('frameborder', '0');
+            this.iframe.setAttribute('class', 'pym-iframe');
 
             if (this.settings.title) {
                 this.iframe.setAttribute('title', this.settings.title);
@@ -332,7 +333,7 @@
          * @param {String} message The message data to send.
          */
         this.sendMessage = function(messageType, message) {
-            this.el.getElementsByTagName('iframe')[0].contentWindow.postMessage(_makeMessage(this.id, messageType, message), '*');
+            this.el.getElementsByClassName('pym-iframe')[0].contentWindow.postMessage(_makeMessage(this.id, messageType, message), '*');
         };
 
         /**
