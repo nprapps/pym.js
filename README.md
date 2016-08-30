@@ -1,6 +1,8 @@
-# Pym.js
+Pym.js
+======
 
-## About
+What is this?
+-------------
 
 Using iframes in a responsive page can be frustrating. It&rsquo;s easy enough to make an iframe&rsquo;s width span 100% of its container, but sizing its height is tricky &mdash; especially if the content of the iframe changes height depending on page width (for example, because of text wrapping or media queries) or events within the iframe.
 
@@ -8,54 +10,36 @@ Using iframes in a responsive page can be frustrating. It&rsquo;s easy enough to
 
 Use case: The NPR Visuals team uses Pym.js to embed small custom bits of code (charts, maps, etc.) inside our CMS without CSS or JavaScript conflicts. [See an example of this in action.](http://www.npr.org/2014/03/25/293870089/maze-of-college-costs-and-aid-programs-trap-some-families)
 
-### [&rsaquo; Read the documentation](http://blog.apps.npr.org/pym.js/)
+## [&rsaquo; Read the documentation](http://blog.apps.npr.org/pym.js/)
 
-### [&rsaquo; Browse the API](http://blog.apps.npr.org/pym.js/api/)
+What is the loader script for? Why do we need it?
+-------------------------------------------------
 
-## Development tasks
+Pym.js v1.0.0 development has been driven by a change needed to extend the ability to use Pym.js in certain CMSes used by NPR member stations and other use cases found by our collaborators that broke the loading process of loading Pym.js in common cases and thus made the embeds unusable.
 
-Grunt configuration is included for running common development tasks.
+We have decided to separate the particular needs of the Pym.js loading process in these special situations into a separate script that will act wrap and load Pym.js for these cases instead of polluting the Pym.js library itself with special needs of certain CMSes.
 
-Javascript can be linted with [jshint](http://jshint.com/):
+We want to keep Pym.js loading and invocation as manageable as possible. Due to the extensive use of Pym.js in many different environments, we encourage implementers to create special loaders if their integrations require it.
 
-```
-grunt jshint
-```
-
-Unminified source can be regenerated with:
-
-```
-grunt concat
-```
-
-Minified source can be regenerated with:
-
-```
-grunt uglify
-```
-
-API documention can be generated with [jsdoc](https://github.com/jsdoc3/jsdoc):
-
-```
-grunt jsdoc
-```
-
-The release process is documented [on the wiki](https://github.com/nprapps/pym.js/wiki/Release-Process).
-
-## License & Credits
-
-Released under the MIT open source license. See `LICENSE` for details.
+Credits
+-------
 
 Pym.js was built by the [NPR Visuals](http://github.com/nprapps) team, based on work by the [NPR Tech Team](https://github.com/npr/responsiveiframe) and [Ioseb Dzmanashvili](https://github.com/ioseb). Thanks to [Erik Hinton](https://twitter.com/erikhinton) for suggesting the name.
 
-Additional contributors:
+Contributors
+------------
 
-* [Pierre-Yves Jamon](https://github.com/Pym)
-* [jugglinmike](https://github.com/jugglinmike)
-* [David Rogers](https://github.com/al-the-x)
-* [Noah Veltman](https://github.com/veltman)
+* [Alyson Hurt](https://github.com/alykat)
 * [Andrei Scheinkman](https://github.com/ascheink)
-* [Thomas Wilburn](https://github.com/thomaswilburn)
-* [Justin Dearing](https://github.com/zippy1981)
 * [Chris Amico](https://github.com/eyeseast)
+* [Christopher Groskopf](https://github.com/onyxfish)
+* [Corey Haines](https://github.com/coreyhaines)
+* [David Eads](https://github.com/eads)
+* [David Rogers](https://github.com/al-the-x)
+* [Juan Elosua](https://github.com/jjelosua)
+* [Justin Dearing](https://github.com/zippy1981)
+* [Noah Veltman](https://github.com/veltman)
+* [Pierre-Yves Jamon](https://github.com/Pym)
 * [Ryan Murphy](https://github.com/rdmurphy)
+* [Thomas Wilburn](https://github.com/thomaswilburn)
+* [jugglinmike](https://github.com/jugglinmike)

@@ -1,7 +1,7 @@
-/*  http://meyerweb.com/eric/tools/css/reset/ 
+/*  http://meyerweb.com/eric/tools/css/reset/
     v2.0 | 20110126
     License: none (public domain)
-    
+
     These styles began life as the Tactile theme
     for gh-pages by Jason Long: https://twitter.com/jasonlong
 */
@@ -19,8 +19,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     margin: 0;
@@ -31,7 +31,7 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
@@ -67,42 +67,42 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 32px;
-} 
+}
 
 h2 {
   font-size: 22px;
   color: #303030;
   margin-bottom: 8px;
-} 
+}
 
 h3 {
   color: #303030;
   font-size: 18px;
   margin-bottom: 8px;
-} 
- 
+}
+
 h4 {
   font-size: 16px;
   color: #303030;
   margin-bottom: .5em;
-} 
+}
 
 h5 {
   font-size: 14px;
   color: #303030;
   margin-bottom: .5em;
-} 
+}
 
 h6 {
   font-size: .8em;
   color: #303030;
-} 
+}
 
 p {
   font-weight: 300;
   margin-bottom: 20px;
 }
- 
+
 a {
   text-decoration: none;
 }
@@ -141,7 +141,7 @@ footer a:hover {
 /* LAYOUT STYLES */
 body {
   font-size: 1em;
-  line-height: 1.5; 
+  line-height: 1.5;
   background-color: #e7e7e7;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, serif;
   color: #222;
@@ -336,6 +336,12 @@ ul.my-list {
 
 .example {
     margin-bottom: 1em;
+}
+
+p.note {
+  font-weight: 200;
+  font-style: italic;
+  margin-bottom: 10px;
 }
 
 /* MISC */

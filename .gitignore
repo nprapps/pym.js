@@ -3,3 +3,15 @@
 node_modules
 *.swp
 *.swo
+*.log
+build
+sauce/*.log
+sauce/sauce_cred.json
+# remove everything we do not need to publish
+sauce
+test
+karma*
+CHANGELOG
+LICENSE
+.travis.yml
+bower.json

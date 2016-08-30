@@ -26,8 +26,8 @@
                     <h2>Embed iframes responsively</h2>
 
                     <section class="clearfix">
-                        <a href="https://github.com/nprapps/responsiveiframe/" id="view-on-github" class="button"><span>View on GitHub</span></a>
-                        <a href="./api/" id="api" class="button"><span>Browse API docs</span></a>
+                        <a href="https://github.com/nprapps/pym.js/" id="view-on-github" class="button"><span>View on GitHub</span></a>
+                        <a href="./api/pym.js/1.0.0/" id="api" class="button"><span>Browse API docs</span></a>
                         <div class="logos">
                             <a href="http://opennews.org" class="org-logo"><img src="img/opennews-logo.png"></a>
                             <a href="http://blog.apps.npr.org" class="org-logo npr"><img src="http://media.npr.org/chrome/news/nprlogo_138x46.gif"></a>
@@ -45,57 +45,70 @@
                     <p><strong>Use case:</strong> The NPR Visuals team uses Pym.js to embed small custom bits of code (charts, maps, etc.) inside our CMS without CSS or JavaScript conflicts. <a href="http://www.npr.org/2014/03/25/293870089/maze-of-college-costs-and-aid-programs-trap-some-families">See an example of this in action.</a></p>
                 </section>
 
-                <section id="download">
-                    <h2>Download Pym.js</h2>
-                    <ul>
-                        <li><a href="dist/pym.js">Uncompressed</a> (16 KB)</li>
-                        <li><a href="dist/pym.min.js">Compressed</a> (4 KB)</li>
-                    </ul>
-                </section>
+                <section id="get-pym">
+                    <h2>Getting Pym.js</h2>
 
-                <section id="requirements">
-                    <h3>Requirements/Assumptions</h3>
+                    <h3 id="get-pym-cdn">Use the Pym.js CDN</h3>
+                    <p>We recommend in most cases that you use the latest stable version of <code>Pym.js</code> hosted on our content delivery network (CDN) at <code>pym.nprapps.org</code> instead of downloading it directly. We will keep the CDN version up-to-date so that we can fix bugs and add new features and you won't have to change anything. <a href="https://github.com/nprapps/pym.js/tree/master#versioning">Learn more about our versioning strategy.</a></p>
+
                     <ul>
-                        <li><code>pym.js</code> does not require jQuery or any other libraries. Some of the examples use jQuery on the child pages for unrelated features.</li>
-                        <li>If you&rsquo;re pasting the iframe embed code into a CMS or blogging software, make sure that it allows you to embed HTML and JavaScript. Some CMSes (such as WordPress) may strip tags out.</li>
-                        <li>The parent and child pages do not need to be on the same domain. If they are not, child URLs should be fully-qualified, e.g., <code>http://blog.apps.npr.org/pym.js/examples/graphic/child.html</code></li>
-                        <li><code>pym.js</code> isn't built to handle embedding more than a handful of child frames on the parent. Ten or fewer is a good rule of thumb.</li>
+                        <li><a href="https://pym.nprapps.org/pym.v1.js">https://pym.nprapps.org/pym.v1.js (Uncompressed)</a> (21 KB)</li>
+                        <li><a href="https://pym.nprapps.org/pym.v1.min.js">https://pym.nprapps.org/pym.v1.min.js (Compressed)</a> (6 KB)</li>
                     </ul>
 
-                    <h3>Browsers</h3>
-                    <p><code>pym.js</code> has been tested in:</p>
+                    <p>We recommend using <code>https</code>, but the unsecure <code>http</code> protocol is also supported if you need it.</p>
+
+                    <h3 id="get-pym-download">Download Pym.js</h3>
                     <ul>
-                        <li>Internet Explorer 9, 10 (Windows 7), 11 (Windows 8)</li>
-                        <li>Chrome 32 (Mac 10.9)</li>
-                        <li>Firefox 26 (Mac 10.9)</li>
-                        <li>Safari 7 (Mac 10.9)</li>
-                        <li>iOS 7 Safari</li>
-                        <li>iOS 7 Chrome</li>
-                        <li>Android 4.4 Chrome</li>
+                        <li><a href="dist/pym.v1.js">Uncompressed</a> (21 KB)</li>
+                        <li><a href="dist/pym.v1.min.js">Compressed</a> (6 KB)</li>
                     </ul>
-                    <p>Internet Explorer versions earlier than 9 are not supported.</p>
-                </section>
 
-                <section id="install-bower">
-                    <h3>Installing with Bower</h3>
-                    <p>If you use <a href="http://bower.io/">Bower</a> to manage your Javascript dependencies then you can install Pym.js by running:</p>
-
-                    <p><code>bower install pym.js</code></p>
-
-                    <p>Otherwise you can just copy <code>pym.js</code> into your codebase like you would any other javascript library.</p>
-                </section>
-
-                <section id="install-npm">
-                    <h3>Installing with NPM</h3>
+                    <h3 id="get-pym-npm">Installing with NPM</h3>
                     <p>If you use <a href="http://npmjs.org/">NPM</a> to manage your Javascript dependencies then you can install Pym.js by running:</p>
 
                     <p><code>npm install pym.js</code></p>
 
-                    <p>Otherwise you can just copy <code>pym.js</code> into your codebase like you would any other javascript library.</p>
+                    <h3 id="get-pym-bower">Installing with Bower</h3>
+                    <p>If you use <a href="http://bower.io/">Bower</a> to manage your Javascript dependencies then you can install Pym.js by running:</p>
+
+                    <p><code>bower install pym.js</code></p>
+
+                    <h3 id="get-pym-trouble">Having trouble loading Pym.js in your CMS?</h3>
+
+                    <p><a href="#loader">Learn about pym-loader.js</a>.</p>
+
+                </section>
+
+                <section id="requirements">
+                    <h2>Requirements/Assumptions</h2>
+                    <ul>
+                        <li><code>Pym.js</code> does not require jQuery or any other libraries. Some of the examples use jQuery on the child pages for unrelated features.</li>
+                        <li>If you&rsquo;re pasting the iframe embed code into a CMS or blogging software, make sure that it allows you to embed HTML and JavaScript. Some CMSes (such as WordPress) may strip tags out.</li>
+                        <li>The parent and child pages do not need to be on the same domain. If they are not, child URLs should be fully-qualified, e.g., <code>http://blog.apps.npr.org/pym.js/examples/graphic/child.html</code></li>
+                        <li><code>Pym.js</code> isn't built to handle embedding more than a handful of child frames on the parent. Ten or fewer is a good rule of thumb.</li>
+                    </ul>
+                </section>
+
+                <section id="browser-support">
+                    <h2>Browser support</h2>
+                    <p><code>Pym.js</code> has been tested in:</p>
+                    <ul>
+                        <li>Internet Explorer 9, 10 (Windows 7), 11 (Windows 8.1)</li>
+                        <li>Chrome 32 (Mac 10.9)</li>
+                        <li>Chrome 51 (Mac 10.11)</li>
+                        <li>Firefox 26 (Mac 10.9)</li>
+                        <li>Firefox 47 (Mac 10.11)</li>
+                        <li>Safari 7 (Mac 10.9)</li>
+                        <li>Safari 9 (Mac 10.11)</li>
+                        <li>iOS 7 Safari</li>
+                        <li>Android 5.1 Browser</li>
+                    </ul>
+                    <p>Internet Explorer versions earlier than 9 are not supported. If you want to read more about our tests and testing strategy take a look at the docs in the repo <a href="https://github.com/nprapps/pym.js/tree/master#test-the-project">here</a>.</p>
                 </section>
 
                 <section id="examples">
-                    <h3>Usage</h3>
+                    <h2>Usage</h2>
                     <p>Resize your browser window to see the responsiveness in action.</p>
 
                     <div class="example-block">
@@ -103,13 +116,13 @@
                         <ul>
                             <li>Name your containing div (or any other block-level element) with a unique ID.</li>
                             <li>Do not apply any padding or border to your container div. This will throw off pym's height calculations. If you need padding or border around your container, wrap it in another div and apply that there.</li>
-                            <li>Include <code>pym.js</code>. <em>Only once per page</em>, no matter how many iframes you will have.</li>
-                            <li>Create a <code>new pym.Parent(parent_id, child_url);</code> for <em>each</em> responsive iframe. (Pym will generate the actual iframe element.)</li>
+                            <li>Include <code>Pym.js</code>. <em>Only once per page</em>, no matter how many iframes you will have.</li>
+                            <li>Create a <code>new pym.Parent(parent_id, child_url);</code> for <em>each</em> responsive iframe. (<strong>Pym will generate the actual iframe element.</strong>)</li>
                             <li>Optional: To filter incoming message domains, you can pass in a regex. For example: <code>pym.Parent('example', 'child.html', { xdomain: '\\*\.npr\.org' });</code></li>
                         </ul>
 
 <pre><code>&lt;div id="example"&gt;&lt;/div&gt;
-&lt;script type="text/javascript" src="pym.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="//pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
     var pymParent = new pym.Parent('example', 'child.html', {});
 &lt;/script&gt;
@@ -121,18 +134,21 @@
                         <h4>Multiple Embeds on the Same Parent Page</h4>
                         <p>You don&rsquo;t have to do anything special to the child pages, but you do need to keep a few things in mind for the parent page:</p>
                         <ul>
-                            <li>Each child embed needs a unique div ID (<code>&lt;div id="example"&gt;</code>, <code>&lt;div id="bar-graph"&gt;</code>, etc.).</li>
-                            <li>Include <code>pym.js</code> only <em>once</em> on the page.</li>
+                            <li>Each child embed needs a unique div ID (<code>&lt;div id="example-1"&gt;</code>, <code>&lt;div id="example-2"&gt;</code>, etc.).</li>
+                            <li>Include <code>Pym.js</code> only <em>once</em> on the page.</li>
                         </ul>
 
                         <h5>HTML Needed on the Parent Page</h5>
 <pre><code>&lt;div id="example-1"&gt;&lt;/div&gt;
 &lt;div id="example-2"&gt;&lt;/div&gt;
+&lt;script type="text/javascript" src="//pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
 </code></pre>
 
                         <h5>Javascript Needed on the Parent Page</h5>
-<pre><code>var pymParent = new pym.Parent('example-1', 'child-1.html', {});
+<pre><code>&lt;script&gt;
+var pymParent = new pym.Parent('example-1', 'child-1.html', {});
 var second = new pym.Parent('example-2', 'child-2.html', {});
+&lt;/script&gt;
 </code></pre>
 
                     </div>
@@ -141,7 +157,7 @@ var second = new pym.Parent('example-2', 'child-2.html', {});
                     <div class="example-block">
                         <h4>On the Child Page (The Content You Want to Embed)</h4>
                         <ul>
-                            <li>Include <code>pym.js</code>.</li>
+                            <li>Include <code>Pym.js</code>.</li>
                             <li>Create a <code>new pym.Child();</code>.</li>
                             <li>Optional: If the contents of your iframe are dynamic you will want to pass in a rendering function, like this: <code>pym.Child({ renderCallback: myFunc });</code> This function will be called once when the page loads and again any time the window is resized.</li>
                             <li>Optional: You can pass in a number of milliseconds to enable automaticaly updating the height at that rate (in addition to onload and onresize events). For example: <code>pym.Child({ polling: 500 });</code>.</li>
@@ -214,29 +230,10 @@ var pymChild = new pym.Child();
 
                 </section>
 
-                <section id="how">
-                    <h3>How It Works</h3>
-                    <p>The <code>Pym.js</code> library and a small bit of javascript are injected onto the parent page. This code writes an iframe to the page in a container of your choice. The request for the iframe&rsquo;s contents includes querystring parameters for the <code>initialWidth</code> and <code>childId</code> of the child page. The <code>initialWidth</code> allows the child to know its size immediately on load, because in iOS, the child frame can not determine its own width accurately. The <code>childId</code> allows multiple children to be embedded on the same page, each with its own communication to the parent.</p>
-                    <p>The child page also includes <code>Pym.js</code> and its own javascript. It initializes cross-iframe communication to the parent, renders any dynamic content and then sends the computed height of the child to the parent via <code>postMessage</code>. Upon receiving this message the parent resizes the containing iframe, thus ensuring the contents of the child are always visible.</p>
-                    <p>The parent page also registers for resize events. Any time one is received, the parent sends the new container width to each child via <code>postMessage</code>. The child re-renders its content and sends back the new height.</p>
-                </section>
-
-                <section id="auto">
-                    <h3>Auto-initializing Pym</h3>
-
-                    <p>Certain CMSes prevent custom Javascript from being embedded on the page. In order to allow pym to support those environments, it can be initialized via <code>data-</code> attributes. This limits usage of pym to simple cases, but should still be enough for many users.</p>
-                    <p>(NPR member stations: <a href="http://blog.apps.npr.org/2014/12/19/pym-core-publisher.html">Use this minor workaround to get this to work in Core Publisher</a>.)</p>
-
-                    <h5>HTML Needed on the Parent Page</h5>
-
-<pre><code>&lt;div data-pym-src="child.html"&gt;&lt;/div&gt;
-</code></pre>
-                </section>
-
                 <section id="custom-events">
-                    <h3>Sending Custom iFrame Events</h3>
+                    <h2>Sending Custom iFrame Events</h2>
 
-                    <p>Although not its original purpose, pym.js can also be used to send and receive generic event data between the iframe parent and child. A simple, jQuery-like event binding model is used to support this message passing.</p>
+                    <p>Although not its original purpose, <code>Pym.js</code> can also be used to send and receive generic event data between the iframe parent and child. A simple, jQuery-like event binding model is used to support this message passing.</p>
 
                     <p>In the following example a click on the link in the parent container will navigate the child frame to a new location.</p>
 
@@ -279,6 +276,71 @@ pymChild.navigateParentTo('https://github.com/nprapps/pym.js');
 
                 </section>
 
+                <section id="how">
+                    <h2>How It Works</h2>
+                    <p>The <code>Pym.js</code> library and a small bit of javascript are injected onto the parent page. This code writes an iframe to the page in a container of your choice. <code>Pym.js</code> will actually replace the contents of the container with the newly created iframe, so it is better to use an empty container from the start to avoid surprises. The request for the iframe&rsquo;s contents includes querystring parameters for the <code>initialWidth</code>, <code>childId</code> of the child page and <code>parentUrl</code> and <code>parentTitle</code> of the parent page. The <code>initialWidth</code> allows the child to know its size immediately on load, because in iOS, the child frame can not determine its own width accurately. The <code>childId</code> allows multiple children to be embedded on the same page, each with its own communication to the parent.</p>
+                    <p>The child page also includes <code>Pym.js</code> and its own javascript. It initializes cross-iframe communication to the parent, renders any dynamic content and then sends the computed height of the child to the parent via <code>postMessage</code>. Upon receiving this message the parent resizes the containing iframe, thus ensuring the contents of the child are always visible.</p>
+                    <p>The parent page also registers for resize events. Any time one is received, the parent sends the new container width to each child via <code>postMessage</code>. The child re-renders its content and sends back the new height.</p>
+                    <p class="note">Extra parameters can be passed to the parent (<code>title</code>, <code>id</code>, <code>name</code>, ...) through a config object that would then be applied as attributes to the generated iFrame. This is a varying list so it is better to check the <a href="./api/pym.js/1.0.0/">API documentation</a> for an up-to-date detailed list</p>
+                </section>
+
+                <section id="auto">
+                    <h3>Auto-initializing Pym.js</h3>
+
+                    <p>Certain CMSes prevent custom Javascript from being embedded on the page. In order to allow pym to support those environments, it can be initialized via <code>data-</code> attributes. This limits usage of pym to simple cases, but should still be enough for many users.</p>
+                    <p>(NPR member stations: <a href="http://blog.apps.npr.org/2014/12/19/pym-core-publisher.html">Use this minor workaround to get this to work in Core Publisher</a>.)</p>
+
+                    <h5>HTML Needed on the Parent Page</h5>
+
+<pre><code>&lt;div data-pym-src="child.html"&gt;&lt;/div&gt;
+&lt;script type="text/javascript" src="//pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
+</code></pre>
+                </section>
+
+                <section id="loader">
+                    <h2>pym-loader.js: The Pym.js loader</h2>
+
+                    <p>Some content management systems prevent custom Javascript from being embedded on the page, others use <code>pjax</code> to load content, and still others use <code>RequireJS</code> to load libraries. Since <code>Pym.js</code> was designed as a library with support for inclusion using <code>AMD</code> and <code>CommonJS</code> we have encountered certain CMSes scenarios were <code>Pym.js</code> broke in some cases or did not load at all.</p>
+
+                    <p>That's why we created <code>pym-loader.js</code>, an additional script that acts as a wrapper to deal with all the nitty gritty details to successfully load <code>Pym.js</code> in many common cases. <code>pym-loader.js</code> was developed after much thought and discussion with developers using <code>Pym.js</code>.</p>
+
+                    <p>Including <code>pym-loader.js</code> on your page automatically and immediately initializes all <code>Pym.js</code>-enabled <code>iframe</code> elements. It works when included via a <code>script</code> tag in environments that use RequireJS and it gracefully handles the complexities of `pjax` navigation.</p>
+
+                    <p><code>pym-loader.js</code> works for the reasonable amount of edge use cases that we have encountered so far and it is our hope it will work for others as well. However, we can't cover all cases. In the future, a one-for-all solution may not work and we may need to release specific loaders for specific edge cases. But at least the <code>Pym.js</code> library will remain isolated from these edge cases.</p>
+
+                    <p>If you have a reasonable amount of control over your CMS's <code>Pym.js</code> implementation, we recommend the raw inclusion of <code>Pym.js</code> as shown in our examples. If you do not have that control over your CMS, are having problems loading <code>Pym.js</code> or just prefer to feel more protected against future changes to your CMS then you can use the loader script.</p>
+
+                    <h5>HTML Needed on the Parent Page</h5>
+
+<pre><code>&lt;div data-pym-src="child.html"&gt;&lt;/div&gt;
+&lt;script type="text/javascript" src="//pym.nprapps.org/pym-loader.v1.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+                    <p><a href="examples/loader_with_requirejs/">Here</a> you can see an example of <code>pym-loader.js</code> in action together with a page that uses <code>require.js</code> to load its javascript assets</p>
+                </section>
+
+                <section id="get-pym-loader">
+                    <h2>Getting the Pym.js loader</h2>
+
+                    <h3>Use the Pym.js CDN</h3>
+
+                      <p>We recommend in most cases that you use the latest stable version of <code>Pym.js</code> hosted on our content delivery network (CDN) at <code>pym.nprapps.org</code> instead of downloading it directly. We will keep the CDN version up-to-date so that we can fix bugs and add new features and you won't have to change anything. <a href="https://github.com/nprapps/pym.js/tree/master#versioning">Learn more about our versioning strategy.</a></p>
+
+                      <ul>
+                          <li><a href="https://pym.nprapps.org/pym-loader.v1.js">https://pym.nprapps.org/pym-loader.v1.js (Uncompressed)</a> (4 KB)</li>
+                          <li><a href="https://pym.nprapps.org/pym-loader.v1.min.js">https://pym.nprapps.org/pym-loader.v1.min.js (Compressed)</a> (1 KB)</li>
+                      </ul>
+
+                      <p>We recommend using <code>https</code>, but the unsecure <code>http</code> protocol is also supported if you need it.</p>
+
+
+                    <h3 id="get-pym-loader-download">Download pym-loader.js</h3>
+                    <ul>
+                        <li><a href="dist/pym-loader.v1.js">Uncompressed</a> (4 KB)</li>
+                        <li><a href="dist/pym-loader.v1.min.js">Compressed</a> (&lt;1 KB)</li>
+                    </ul>
+                </section>
+
                 <section id="in-the-wild">
                     <h3>Pym.js in the wild</h3>
 
@@ -304,6 +366,24 @@ pymChild.navigateParentTo('https://github.com/nprapps/pym.js');
 
                 <footer>
                     <p>Pym.js was built by the <a href="http://github.com/nprapps">NPR Visuals</a> team, based on work by the <a href="https://github.com/npr/responsiveiframe">NPR Tech Team</a> and <a href="https://github.com/ioseb">Ioseb Dzmanashvili</a>. Thanks to <a href="https://twitter.com/erikhinton">Erik Hinton</a> for suggesting the name.</p>
+
+                    <p>With the help of all these contributors:</p>
+                    <ul>
+                        <li><a href="https://github.com/alykat">Alyson Hurt</a></li>
+                        <li><a href="https://github.com/ascheink">Andrei Scheinkman</a></li>
+                        <li><a href="https://github.com/eyeseast">Chris Amico</a></li>
+                        <li><a href="https://github.com/onyxfish">Christopher Groskopf</a></li>
+                        <li><a href="https://github.com/coreyhaines">Corey Haines</a></li>
+                        <li><a href="https://github.com/eads">David Eads</a></li>
+                        <li><a href="https://github.com/al-the-x">David Rogers</a></li>
+                        <li><a href="https://github.com/jjelosua">Juan Elosua</a></li>
+                        <li><a href="https://github.com/zippy1981">Justin Dearing</a></li>
+                        <li><a href="https://github.com/veltman">Noah Veltman</a></li>
+                        <li><a href="https://github.com/Pym">Pierre-Yves Jamon</a></li>
+                        <li><a href="https://github.com/rdmurphy">Ryan Murphy</a></li>
+                        <li><a href="https://github.com/thomaswilburn">Thomas Wilburn</a></li>
+                        <li><a href="https://github.com/jugglinmike">jugglinmike</a></li>
+                    </ul>
                 </footer>
             </div>
         </div>
