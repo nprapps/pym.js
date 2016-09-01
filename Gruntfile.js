@@ -76,23 +76,22 @@ module.exports = function(grunt) {
       },
     },
     concat: {
-        pym: {
-          options: {
-            banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-          },
-          src: ['build/pym.js'],
-          dest: 'dist/pym.v<%= pkg.version[0] %>.js'
+      pym: {
+        options: {
+          banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+                  '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
-        loader: {
-          options: {
-            banner: '/*! pym-loader - v<%= pkg.loader_version %> - ' +
-                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-          },
-          src: ['build/pym-loader.js'],
-          dest: 'dist/pym-loader.v<%= pkg.loader_version[0] %>.js'
+        src: ['build/pym.js'],
+        dest: 'dist/pym.v<%= pkg.version[0] %>.js'
+      },
+      loader: {
+        options: {
+          banner: '/*! pym-loader.js - v<%= pkg.version %> - ' +
+                  '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
-
+        src: ['build/pym-loader.js'],
+        dest: 'dist/pym-loader.v<%= pkg.version[0] %>.js'
+      },
     },
     karma: {
       local: {
@@ -119,12 +118,12 @@ module.exports = function(grunt) {
       },
       loader: {
         options: {
-          banner: '/*! pym-loader - v<%= pkg.loader_version %> - ' +
+          banner: '/*! pym-loader.js - v<%= pkg.version %> - ' +
                   '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         files: {
-          'dist/pl.v<%= pkg.loader_version[0] %>.m.js': ['dist/pym-loader.v<%= pkg.loader_version[0] %>.js'],
-          'dist/pym-loader.v<%= pkg.loader_version[0] %>.min.js': ['dist/pym-loader.v<%= pkg.loader_version[0] %>.js']
+          'dist/pl.v<%= pkg.version[0] %>.m.js': ['dist/pym-loader.v<%= pkg.version[0] %>.js'],
+          'dist/pym-loader.v<%= pkg.version[0] %>.min.js': ['dist/pym-loader.v<%= pkg.version[0] %>.js']
         }
       }
     },
