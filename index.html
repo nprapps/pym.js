@@ -27,7 +27,7 @@
 
                     <section class="clearfix">
                         <a href="https://github.com/nprapps/pym.js/" id="view-on-github" class="button"><span>View on GitHub</span></a>
-                        <a href="./api/pym.js/1.0.1/" id="api" class="button"><span>Browse API docs</span></a>
+                        <a href="./api/pym.js/1.1.0/" id="api" class="button"><span>Browse API docs</span></a>
                         <div class="logos">
                             <a href="http://opennews.org" class="org-logo"><img src="img/opennews-logo.png"></a>
                             <a href="http://blog.apps.npr.org" class="org-logo npr"><img src="http://media.npr.org/chrome/news/nprlogo_138x46.gif"></a>
@@ -40,7 +40,7 @@
             <div class="wrapper">
                 <section id="about">
                     <h2>About Pym.js</h2>
-                    <h3>Latest version: 1.0.1 (released Sep. 1, 2016)</h3>
+                    <h3>Latest version: 1.1.0 (released Sep. 15, 2016)</h3>
                     <p>Using iframes in a responsive page can be frustrating. It&rsquo;s easy enough to make an iframe&rsquo;s width span 100% of its container, but sizing its height is tricky &mdash; especially if the content of the iframe changes height depending on page width (for example, because of text wrapping or media queries) or events within the iframe.</p>
                     <p>Pym.js embeds and resizes an iframe responsively (width <em>and</em> height) within its parent container. It also bypasses the usual cross-domain issues.</p>
                     <p><strong>Use case:</strong> The NPR Visuals team uses Pym.js to embed small custom bits of code (charts, maps, etc.) inside our CMS without CSS or JavaScript conflicts. <a href="http://www.npr.org/2014/03/25/293870089/maze-of-college-costs-and-aid-programs-trap-some-families">See an example of this in action.</a></p>
@@ -274,6 +274,16 @@ pymChild.navigateParentTo('https://github.com/nprapps/pym.js');
 
                     <div id="example-navigation" class="example"></div>
 
+                    <p>Starting in <code>v1.1.0</code> we have included a new shortcut that allows the child to scroll the parent to a given position within the child document. You can pass the offset desired relative to the child page or use a helper function passing it the id of an element within that child page</p>
+
+                    <h5>Code to scroll the parent to a child position</h5>
+
+<pre><code>
+pymChild.scrollParentToChild('download');
+pymChild.scrollParentToChildPos(1000);
+</code></pre>
+
+                    <p><a href="examples/scrollParentToChild/">Here</a> you can see an example of the new scroll shortcut in action.
 
                 </section>
 
@@ -294,6 +304,12 @@ pymChild.navigateParentTo('https://github.com/nprapps/pym.js');
                     <h5>HTML Needed on the Parent Page</h5>
 
 <pre><code>&lt;div data-pym-src="child.html"&gt;&lt;/div&gt;
+&lt;script type="text/javascript" src="//pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+                    <p>Starting on <code>v1.1.0</code> you can pass configuration parameters as HTML data attributes by just prefixing the parent configuration parameter with <code>data-pym-</code>. To check all the available parent configuration parameters check the API documentation <a href="./api/pym.js/1.1.0/module-pym.Parent.html">here</a>
+
+<pre><code>&lt;div data-pym-src="child.html" data-pym-allowfullscreen&gt;&lt;/div&gt;
 &lt;script type="text/javascript" src="//pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
 </code></pre>
                 </section>
@@ -368,23 +384,7 @@ pymChild.navigateParentTo('https://github.com/nprapps/pym.js');
                 <footer>
                     <p>Pym.js was built by the <a href="http://github.com/nprapps">NPR Visuals</a> team, based on work by the <a href="https://github.com/npr/responsiveiframe">NPR Tech Team</a> and <a href="https://github.com/ioseb">Ioseb Dzmanashvili</a>. Thanks to <a href="https://twitter.com/erikhinton">Erik Hinton</a> for suggesting the name.</p>
 
-                    <p>With the help of all these contributors:</p>
-                    <ul>
-                        <li><a href="https://github.com/alykat">Alyson Hurt</a></li>
-                        <li><a href="https://github.com/ascheink">Andrei Scheinkman</a></li>
-                        <li><a href="https://github.com/eyeseast">Chris Amico</a></li>
-                        <li><a href="https://github.com/onyxfish">Christopher Groskopf</a></li>
-                        <li><a href="https://github.com/coreyhaines">Corey Haines</a></li>
-                        <li><a href="https://github.com/eads">David Eads</a></li>
-                        <li><a href="https://github.com/al-the-x">David Rogers</a></li>
-                        <li><a href="https://github.com/jjelosua">Juan Elosua</a></li>
-                        <li><a href="https://github.com/zippy1981">Justin Dearing</a></li>
-                        <li><a href="https://github.com/veltman">Noah Veltman</a></li>
-                        <li><a href="https://github.com/Pym">Pierre-Yves Jamon</a></li>
-                        <li><a href="https://github.com/rdmurphy">Ryan Murphy</a></li>
-                        <li><a href="https://github.com/thomaswilburn">Thomas Wilburn</a></li>
-                        <li><a href="https://github.com/jugglinmike">jugglinmike</a></li>
-                    </ul>
+                    <p>With the help of all these <a href="https://github.com/nprapps/responsiveiframe/blob/master/CONTRIBUTORS">contributors</a></p>
                 </footer>
             </div>
         </div>
@@ -396,6 +396,7 @@ pymChild.navigateParentTo('https://github.com/nprapps/pym.js');
         new pym.Parent('example-quiz', 'examples/quiz/child.html', {});
         new pym.Parent('example-follow-links', 'examples/follow-links/child.html', {});
         new pym.Parent('example-navigation', 'examples/navigation/child.html', {});
+        new pym.Parent('example-scroll', 'examples/scrollParentToChild/child.html', {});
     </script>
 
     </body>
