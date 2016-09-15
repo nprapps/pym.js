@@ -463,11 +463,12 @@
          * @param {String} message The offset inside the child page.
          */
         this._onScrollToChildPosMessage = function(message) {
-            /*
-             * Handle parent scroll message from child.
-             */
-            var offset = parseInt(message) + document.getElementById(this.id).getBoundingClientRect().top;
-            window.scrollTo(0, offset);
+            // Get the child container position using getBoundingClientRect + pageYOffset
+            // via https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+            var iframePos = document.getElementById(this.id).getBoundingClientRect().top + window.pageYOffset;
+
+            var totalOffset = iframePos + parseInt(message);
+            window.scrollTo(0, totalOffset);
         };
 
         /**
@@ -815,19 +816,20 @@
          * Scroll parent to a given child element id.
          *
          * @memberof module:pym.Child
-         * @method scrollParentToChild
+         * @method scrollParentToChildEl
          * @instance
          *
          * @param {String} id The id of the child element to scroll to.
          */
-        this.scrollParentToChild = function(id) {
-            //Get the child position
-            var pos = document.getElementById(id).getBoundingClientRect().top;
-            this.scrollParentToChildPos(pos);
+        this.scrollParentToChildEl = function(id) {
+            // Get the child element position using getBoundingClientRect + pageYOffset
+            // via https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+            var topPos = document.getElementById(id).getBoundingClientRect().top + window.pageYOffset;
+            this.scrollParentToChildPos(topPos);
         };
 
         /**
-         * Scroll parent to a given child offset.
+         * Scroll parent to a particular child offset.
          *
          * @memberof module:pym.Child
          * @method scrollParentToChildPos
