@@ -17,6 +17,7 @@ module.exports = function(grunt) {
         noarg: true,
         expr: true,
         sub: true,
+        loopfunc: true,
         node: true,
         undef: true,
         unused: true,
@@ -61,6 +62,23 @@ module.exports = function(grunt) {
         files: [
           {expand: true, flatten: true, src: ['src/pym-loader.js'], dest: 'build/'}
         ]
+      },
+      tracker_loader: {
+        options: {
+          patterns: [
+            {
+              match: 'defaultPymUrl',
+              replacement: '<%= pkg.defaultPymUrl %>'
+            },
+            {
+              match: 'defaultTrackerUrl',
+              replacement: '//carebot.nprapps.org/child-tracker.v1.min.js'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['src/child-tracker-loader.js'], dest: 'build/'}
+        ]
       }
     },
     preprocess:  {
@@ -91,6 +109,22 @@ module.exports = function(grunt) {
         },
         src: ['build/pym-loader.js'],
         dest: 'dist/pym-loader.v<%= pkg.version[0] %>.js'
+      },
+      tracker: {
+        options: {
+          banner: '/*! child-tracker.js - v<%= pkg.version %> - ' +
+                  '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        },
+        src: ['src/child-tracker.js'],
+        dest: 'dist/child-tracker.v<%= pkg.version[0] %>.js'
+      },
+      tracker_loader: {
+        options: {
+          banner: '/*! child-tracker-loader.js - v<%= pkg.version %> - ' +
+                  '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        },
+        src: ['build/child-tracker-loader.js'],
+        dest: 'dist/child-tracker-loader.v<%= pkg.version[0] %>.js'
       },
     },
     karma: {
@@ -124,6 +158,24 @@ module.exports = function(grunt) {
         files: {
           'dist/pl.v<%= pkg.version[0] %>.m.js': ['dist/pym-loader.v<%= pkg.version[0] %>.js'],
           'dist/pym-loader.v<%= pkg.version[0] %>.min.js': ['dist/pym-loader.v<%= pkg.version[0] %>.js']
+        }
+      },
+      tracker: {
+        options: {
+          banner: '/*! child-tracker.js - v<%= pkg.version %> - ' +
+                  '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        },
+        files: {
+          'dist/child-tracker.v<%= pkg.version[0] %>.min.js': ['dist/child-tracker.v<%= pkg.version[0] %>.js']
+        }
+      },
+      tracker_loader: {
+        options: {
+          banner: '/*! child-tracker-loader.js - v<%= pkg.version %> - ' +
+                  '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        },
+        files: {
+          'dist/child-tracker-loader.v<%= pkg.version[0] %>.min.js': ['dist/child-tracker-loader.v<%= pkg.version[0] %>.js']
         }
       }
     },
