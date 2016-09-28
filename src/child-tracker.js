@@ -78,13 +78,27 @@
      * @param {Object} config Configuration to override the default settings.
      */
     lib.VisibilityTracker = function(pymParent, id, callback, config) {
-        var WAIT_TO_ENSURE_SCROLLING_IS_DONE = 40;
-        var WAIT_TO_MARK_READ = 500;
-        var ANIMATION_DURATION = 800;
+        /**
+         * The VisibilityTracker settings, updated by the values passed in the config object
+         *
+         * @memberof module:ChildTracker.VisibilityTracker
+         * @member {Object} settings
+         * @inner
+         */
+        this.settings = {
+            WAIT_TO_ENSURE_SCROLLING_IS_DONE: 40,
+            WAIT_TO_MARK_READ: 500,
+            ANIMATION_DURATION: 800
+        };
+
+        // Add any overrides to settings coming from config.
+        for (var key in config) {
+            this.settings[key] = config[key];
+        }
 
         var isVisible = false;
 
-        var timer = new Timer(callback, WAIT_TO_MARK_READ);
+        var timer = new Timer(callback, this.settings.WAIT_TO_MARK_READ);
 
         // Ensure a config object
         config = (config || {});
@@ -150,14 +164,14 @@
                 // before the "read" timer has expired to force a check to see if an annotation
                 // is still in the viewport. If isn't, the timer is reset until the annotation
                 // appears in the viewport again.
-                setTimeout(sendRectRequest, ANIMATION_DURATION);
+                setTimeout(sendRectRequest, this.settings.ANIMATION_DURATION);
             }
 
             isVisible = newVisibility;
             return newVisibility;
         }
 
-        var handler = throttle(sendRectRequest, WAIT_TO_ENSURE_SCROLLING_IS_DONE);
+        var handler = throttle(sendRectRequest, this.settings.WAIT_TO_ENSURE_SCROLLING_IS_DONE);
 
         function stopTracking() {
             if (window.removeEventListener) {
@@ -178,8 +192,8 @@
 
         pymParent.onMessage(id + '-rect-return', function(rect) {
             var rectObj = _parseRect(rect);
-            checkIfVisible(rectObj);
-        });
+            checkIfVisible.call(this, rectObj);
+        }.bind(this));
 
         // Initialize
         sendRectRequest();

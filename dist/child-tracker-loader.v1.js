@@ -1,4 +1,4 @@
-/*! child-tracker-loader.js - v1.1.0 - 2016-09-27 */
+/*! child-tracker-loader.js - v1.1.0 - 2016-09-28 */
 /*
 * debates-loader.js is a wrapper library that deals with particular CMS scenarios to successfully load Pym.js and required tracking code
 * into a given page. To find out more about Pym.js check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -19,6 +19,94 @@
             return pym.autoInit();
         }
         return null;
+    };
+
+    // Child Tracking messages functionality
+    /**
+    * Sends On Screen message to the child
+    *
+    * @method sendOnScreen
+    * @instance
+    *
+    * @param {String} id The id of the element in the child that has appeared on screen
+    */
+    var sendOnScreen = function(id) {
+        this.sendMessage('on-screen', id);
+    };
+
+    /**
+    * Function called from the child to test if the parent has visibility tracker
+    * enabled to allow for fallback options
+    *
+    * @method onTestVisibilityTracker
+    * @instance
+    */
+    var onTestVisibilityTracker = function() {
+        this.sendMessage('visibility-available', 'true');
+    };
+
+    /**
+    * Function fired from the child through pym messaging in order to remove a
+    * given element from the visibility tracking system and avoid memory bloating
+    *
+    * @method onRemoveTracker
+    * @instance
+    *
+    * @param {String} id The id of the element in the child to remove from tracking
+    */
+    var onRemoveTracker = function(id) {
+        this.trackers[id].stopTracking();
+        delete this.trackers[id];
+    };
+
+
+    /**
+    * Function fired from the child through pym messaging in order to add a new element
+    * to the visibility tracking system
+    *
+    * @method onNewFactCheck
+    * @instance
+    *
+    * @param {String} id The id of the element in the child to track
+    */
+    var onNewFactCheck = function(local_tracker, id) {
+        // Config to override default timing parameters on the visibility tracker
+        //
+        //    WAIT_TO_ENSURE_SCROLLING_IS_DONE: 40,
+        //    WAIT_TO_MARK_READ: 500,
+        //    ANIMATION_DURATION: 800
+        //
+        var config = {};
+
+        if (local_tracker) {
+            var t = new local_tracker.VisibilityTracker(this, id, sendOnScreen.bind(this, id), config);
+            this.trackers[id] = t;
+        } else {
+            var tracker = new window.ChildTracker.VisibilityTracker(this, id, sendOnScreen.bind(this, id), config);
+            this.trackers[id] = tracker;
+        }
+    };
+
+    /**
+    * Add child visibility tracking functionality
+    *
+    * @method addChildTracker
+    * @instance
+    *
+    * @param {Array} Array of autoinited pymParent instances in the page
+    * @param {Object} Child visibility tracker library in case it is not global (require.js)
+    */
+    var addChildTracker = function(autoInitInstances, local_tracker) {
+        for (var idx = 0; idx < autoInitInstances.length; idx++) {
+            // Create a valid scope for the tracker callbacks
+            (function(idx) {
+                var pymParent = autoInitInstances[idx];
+                pymParent.trackers = {};
+                pymParent.onMessage('test-visibility-tracker', onTestVisibilityTracker);
+                pymParent.onMessage('remove-tracker', onRemoveTracker);
+                pymParent.onMessage('new-fact-check', onNewFactCheck.bind(pymParent, local_tracker));
+            })(idx);
+        }
     };
 
     /**
@@ -57,25 +145,7 @@
                 var autoInitInstances = initializePym(pym);
 
                 if (autoInitInstances) {
-                    for (var i = 0; i< autoInitInstances.length; i++) {
-                        var pymParent = autoInitInstances[i];
-                        pymParent.trackers = {};
-                        pymParent.onMessage('test-visibility-tracker', function() {
-                            pymParent.sendMessage('visibility-available', 'true');
-                        });
-
-                        pymParent.onMessage('remove-tracker', function(id) {
-                            pymParent.trackers[id].stopTracking();
-                            delete pymParent.trackers[id];
-                        });
-
-                        pymParent.onMessage('new-fact-check', function(id) {
-                            var t = new tracker.VisibilityTracker(pymParent, id, function() {
-                                pymParent.sendMessage('on-screen', id);
-                            });
-                            pymParent.trackers[id] = t;
-                        }.bind(tracker));
-                    }
+                    addChildTracker(autoInitInstances, tracker);
                 } else {
                     console.error("did not find any pym instance on autoInit");
                 }
@@ -103,25 +173,7 @@
             jQuery.getScript(pymUrl).done(function() {
                 var autoInitInstances = initializePym(window.pym);
                 jQuery.getScript(trackerUrl).done(function () {
-                    for (var i = 0; i< autoInitInstances.length; i++) {
-                        var pymParent = autoInitInstances[i];
-                        pymParent.trackers = {};
-                        pymParent.onMessage('test-visibility-tracker', function() {
-                            pymParent.sendMessage('visibility-available', 'true');
-                        });
-
-                        pymParent.onMessage('remove-tracker', function(id) {
-                            pymParent.trackers[id].stopTracking();
-                            delete pymParent.trackers[id];
-                        });
-
-                        pymParent.onMessage('new-fact-check', function(id) {
-                            var tracker = new window.ChildTracker.VisibilityTracker(pymParent, id, function() {
-                                pymParent.sendMessage('on-screen', id);
-                            });
-                            pymParent.trackers[id] = tracker;
-                        });
-                    }
+                    addChildTracker(autoInitInstances);
                 });
             });
             return true;
@@ -160,27 +212,8 @@
                 if (head && script.parentNode) {
                     head.removeChild(script);
                 }
-
                 // Start tracking
-                for (var i = 0; i< autoInitInstances.length; i++) {
-                    var pymParent = autoInitInstances[i];
-                    pymParent.trackers = {};
-                    pymParent.onMessage('test-visibility-tracker', function() {
-                        pymParent.sendMessage('visibility-available', 'true');
-                    });
-
-                    pymParent.onMessage('remove-tracker', function(id) {
-                        pymParent.trackers[id].stopTracking();
-                        delete pymParent.trackers[id];
-                    });
-
-                    pymParent.onMessage('new-fact-check', function(id) {
-                        var tracker = new window.ChildTracker.VisibilityTracker(pymParent, id, function() {
-                            pymParent.sendMessage('on-screen', id);
-                        });
-                        pymParent.trackers[id] = tracker;
-                    });
-                }
+                addChildTracker(autoInitInstances);
             };
             head.appendChild(trackerScript);
         };
@@ -190,11 +223,11 @@
 
     var pymUrl = "//pym.nprapps.org/pym.v1.min.js";
     /* Check for local testing, if the replacement has not been done yet on the build process */
-    if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = '//pym.nprapps.org/pym.v1.min.js'; }
+    if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = '../../src/pym.js'; }
 
     var trackerUrl = "//carebot.nprapps.org/child-tracker.v1.min.js";
     /* Check for local testing, if the replacement has not been done yet on the build process */
-    if (trackerUrl.lastIndexOf('@@', 0) === 0) { trackerUrl = '//carebot.nprapps.org///child-tracker.v1.min.js'; }
+    if (trackerUrl.lastIndexOf('@@', 0) === 0) { trackerUrl = '../../src/child-tracker.js'; }
 
     tryLoadingWithRequirejs(pymUrl, trackerUrl) || tryLoadingWithJQuery(pymUrl, trackerUrl) || loadViaEmbedding(pymUrl, trackerUrl);
 
@@ -210,25 +243,7 @@
         var autoInitInstances = initializePym(window.pym);
         if (autoInitInstances && typeof ChildTracker !== 'undefined') {
             // Start tracking
-            for (var i = 0; i< autoInitInstances.length; i++) {
-                var pymParent = autoInitInstances[i];
-                pymParent.trackers = {};
-                pymParent.onMessage('test-visibility-tracker', function() {
-                    pymParent.sendMessage('visibility-available', 'true');
-                });
-
-                pymParent.onMessage('remove-tracker', function(id) {
-                    pymParent.trackers[id].stopTracking();
-                    delete pymParent.trackers[id];
-                });
-
-                pymParent.onMessage('new-fact-check', function(id) {
-                    var tracker = new window.ChildTracker.VisibilityTracker(pymParent, id, function() {
-                        pymParent.sendMessage('on-screen', id);
-                    });
-                    pymParent.trackers[id] = tracker;
-                });
-            }
+            addChildTracker(autoInitInstances);
         }
         return autoInitInstances;
     };
