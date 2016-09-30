@@ -41,7 +41,8 @@
     * @instance
     */
     var onTestVisibilityTracker = function() {
-        this.sendMessage('visibility-available', 'true');
+        var id = location.hash;
+        this.sendMessage('visibility-available', id);
     };
 
     /**
