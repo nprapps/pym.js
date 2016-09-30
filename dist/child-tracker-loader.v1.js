@@ -31,7 +31,11 @@
     * @param {String} id The id of the element in the child that has appeared on screen
     */
     var sendOnScreen = function(id) {
-        this.sendMessage('on-screen', id);
+        // TODO: Improve hack
+        // Ignore events to empty embeds, keeps listening after unloading the page
+        if (this.el.getElementsByTagName('iframe').length !== 0) {
+            this.sendMessage('on-screen', id);
+        }
     };
 
     /**
@@ -43,7 +47,11 @@
     */
     var onTestVisibilityTracker = function() {
         var id = location.hash;
-        this.sendMessage('visibility-available', id);
+        // TODO: Improve hack
+        // Ignore events to empty embeds, keeps listening after unloading the page
+        if (this.el.getElementsByTagName('iframe').length !== 0) {
+            this.sendMessage('visibility-available', id);
+        }
     };
 
     /**
