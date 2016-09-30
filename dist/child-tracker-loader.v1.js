@@ -1,4 +1,4 @@
-/*! child-tracker-loader.js - v1.1.0 - 2016-09-28 */
+/*! child-tracker-loader.js - v1.1.0 - 2016-09-30 */
 /*
 * debates-loader.js is a wrapper library that deals with particular CMS scenarios to successfully load Pym.js and required tracking code
 * into a given page. To find out more about Pym.js check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -42,7 +42,8 @@
     * @instance
     */
     var onTestVisibilityTracker = function() {
-        this.sendMessage('visibility-available', 'true');
+        var id = location.hash;
+        this.sendMessage('visibility-available', id);
     };
 
     /**
