@@ -5,7 +5,6 @@ var pymChild = null;
  * Set poll on transcript file
  */
 function onWindowLoaded() {
-    debugger;
     pymChild = new pym.Child({
         renderCallback: updateIFrame
     });

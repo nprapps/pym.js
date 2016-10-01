@@ -91,12 +91,13 @@
             ANIMATION_DURATION: 800
         };
 
+        this.id = id;
+        this.isVisible = false;
+
         // Add any overrides to settings coming from config.
         for (var key in config) {
             this.settings[key] = config[key];
         }
-
-        var isVisible = false;
 
         var timer = new Timer(callback, this.settings.WAIT_TO_MARK_READ);
 
@@ -116,7 +117,7 @@
         }
 
         var sendRectRequest = function() {
-            pymParent.sendMessage('request-client-rect', id);
+            pymParent.sendMessage('request-client-rect', this.id);
         };
 
         function isElementInViewport(rect) {
@@ -150,37 +151,36 @@
 
         function checkIfVisible(rect) {
             var newVisibility = isElementInViewport(rect);
-
             // Stop timer if annotation is out of viewport now
-            if (isVisible && !newVisibility) {
+            if (this.isVisible && !newVisibility) {
                 timer.stop();
             }
 
-            if (!isVisible && newVisibility) {
+            if (!this.isVisible && newVisibility) {
                 timer.start();
-                pymParent.sendMessage('fact-check-visible', id);
+                pymParent.sendMessage('fact-check-visible', this.id);
 
                 // @KLUDGE This is a pretty ugly bit of code that sends a second rectrequest
                 // before the "read" timer has expired to force a check to see if an annotation
                 // is still in the viewport. If isn't, the timer is reset until the annotation
                 // appears in the viewport again.
-                setTimeout(sendRectRequest, this.settings.ANIMATION_DURATION);
+                setTimeout(sendRectRequest.bind(this), this.settings.ANIMATION_DURATION);
             }
 
-            isVisible = newVisibility;
-            return newVisibility;
+            this.isVisible = newVisibility;
+            return this.isVisible;
         }
 
-        var handler = throttle(sendRectRequest, this.settings.WAIT_TO_ENSURE_SCROLLING_IS_DONE);
+        var handler = throttle(sendRectRequest.bind(this), this.settings.WAIT_TO_ENSURE_SCROLLING_IS_DONE);
 
-        function stopTracking() {
+        this.stopTracking = function() {
             if (window.removeEventListener) {
                 removeEventListener('DOMContentLoaded', handler, false);
                 removeEventListener('load', handler, false);
                 removeEventListener('scroll', handler, false);
                 removeEventListener('resize', handler, false);
             }
-        }
+        };
 
         // Listen to different window movement events
         if (window.addEventListener) {
@@ -190,17 +190,15 @@
             addEventListener('resize', handler, false);
         }
 
-        pymParent.onMessage(id + '-rect-return', function(rect) {
+        pymParent.onMessage(this.id + '-rect-return', function(rect) {
             var rectObj = _parseRect(rect);
             checkIfVisible.call(this, rectObj);
         }.bind(this));
 
         // Initialize
-        sendRectRequest();
+        sendRectRequest.call(this);
 
-        return {
-            'stopTracking': stopTracking
-        };
+        return this;
     };
     return lib;
 });
