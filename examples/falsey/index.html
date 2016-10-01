@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/javascript" src="../../src/pym.js"></script>
+    <script>
+        var pymParent = new pym.Parent('example', 'child.html', {});
+        //pymParent.onMessage('height', onHeightMessage);
+
+        pymParent.onMessage('height', function(data) {
+            var id = location.hash;
+            // pymParent.sendMessage('testMessage', id);
+            // pymParent.sendMessage('testMessage'); // won't fire
+            pymParent.sendMessage('testMessage', undefined); // won't fire
+            // pymParent.sendMessage('testMessage', null); // won't fire
+            // pymParent.sendMessage('testMessage', ""); // won't fire
+            // pymParent.sendMessage('testMessage', 0); // fires
+            // pymParent.sendMessage('testMessage', false); // also fires
+            // pymParent.sendMessage('testMessage', {}); // other values seem to always fire
+        });
+    </script>
+</body>
+</html>

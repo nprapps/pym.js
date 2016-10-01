@@ -1,14 +1,54 @@
-/*
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>pym.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-pym.Child.html">Child</a><ul class='methods'><li data-type='method'><a href="module-pym.Child.html#navigateParentTo">navigateParentTo</a></li><li data-type='method'><a href="module-pym.Child.html#onMessage">onMessage</a></li><li data-type='method'><a href="module-pym.Child.html#remove">remove</a></li><li data-type='method'><a href="module-pym.Child.html#scrollParentTo">scrollParentTo</a></li><li data-type='method'><a href="module-pym.Child.html#scrollParentToChildEl">scrollParentToChildEl</a></li><li data-type='method'><a href="module-pym.Child.html#scrollParentToChildPos">scrollParentToChildPos</a></li><li data-type='method'><a href="module-pym.Child.html#sendHeight">sendHeight</a></li><li data-type='method'><a href="module-pym.Child.html#sendMessage">sendMessage</a></li><li data-type='method'><a href="module-pym.Child.html#~_fire">_fire</a></li><li data-type='method'><a href="module-pym.Child.html#~_markWhetherEmbedded">_markWhetherEmbedded</a></li><li data-type='method'><a href="module-pym.Child.html#~_onWidthMessage">_onWidthMessage</a></li><li data-type='method'><a href="module-pym.Child.html#~_processMessage">_processMessage</a></li></ul></li><li><a href="module-pym.Parent.html">Parent</a><ul class='methods'><li data-type='method'><a href="module-pym.Parent.html#onMessage">onMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#remove">remove</a></li><li data-type='method'><a href="module-pym.Parent.html#sendMessage">sendMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#sendWidth">sendWidth</a></li><li data-type='method'><a href="module-pym.Parent.html#~_constructIframe">_constructIframe</a></li><li data-type='method'><a href="module-pym.Parent.html#~_fire">_fire</a></li><li data-type='method'><a href="module-pym.Parent.html#~_onHeightMessage">_onHeightMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#~_onNavigateToMessage">_onNavigateToMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#~_onResize">_onResize</a></li><li data-type='method'><a href="module-pym.Parent.html#~_onScrollToChildPosMessage">_onScrollToChildPosMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#~_processMessage">_processMessage</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-pym.html">pym</a><ul class='methods'><li data-type='method'><a href="module-pym.html#autoInit">autoInit</a></li><li data-type='method'><a href="module-pym.html#~_cleanAutoInitInstances">_cleanAutoInitInstances</a></li><li data-type='method'><a href="module-pym.html#~_getParameterByName">_getParameterByName</a></li><li data-type='method'><a href="module-pym.html#~_isSafeMessage">_isSafeMessage</a></li><li data-type='method'><a href="module-pym.html#~_makeMessage">_makeMessage</a></li><li data-type='method'><a href="module-pym.html#~_makeMessageRegex">_makeMessageRegex</a></li></ul></li><li><a href="module-pym-loader.html">pym-loader</a><ul class='methods'><li data-type='method'><a href="module-pym-loader.html#initializePym">initializePym</a></li><li data-type='method'><a href="module-pym-loader.html#loadPymViaEmbedding">loadPymViaEmbedding</a></li><li data-type='method'><a href="module-pym-loader.html#pageLoaded">pageLoaded</a></li><li data-type='method'><a href="module-pym-loader.html#tryLoadingWithJQuery">tryLoadingWithJQuery</a></li><li data-type='method'><a href="module-pym-loader.html#tryLoadingWithRequirejs">tryLoadingWithRequirejs</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pym.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
 */
 
 /** @module pym */
 (function(factory) {
-    if (typeof define === 'function' && define.amd) {
+    if (typeof define === 'function' &amp;&amp; define.amd) {
         define(factory);
     }
-    else if (typeof module !== 'undefined' && module.exports) {
+    else if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         module.exports = factory();
     } else {
         window.pym = factory.call(this);
@@ -28,7 +68,7 @@
     * @param {String} name The name of the paramter to get from the URL.
     */
     var _getParameterByName = function(name) {
-        var regex = new RegExp("[\\?&]" + name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]') + '=([^&#]*)');
+        var regex = new RegExp("[\\?&amp;]" + name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]') + '=([^&amp;#]*)');
         var results = regex.exec(location.search);
 
         if (results === null) {
@@ -102,7 +142,7 @@
         for (var idx = length - 1; idx >= 0; idx--) {
             var instance = lib.autoInitInstances[idx];
             // If instance has been removed or is contentless then remove it
-            if (instance.el.getElementsByTagName('iframe').length &&
+            if (instance.el.getElementsByTagName('iframe').length &amp;&amp;
                 instance.el.getElementsByTagName('iframe')[0].contentWindow) {
                 continue;
             }
@@ -134,7 +174,7 @@
         // Clean stored instances in case needed
         _cleanAutoInitInstances();
 
-        for (var idx = 0; idx < length; ++idx) {
+        for (var idx = 0; idx &lt; length; ++idx) {
             var element = elements[idx];
             /*
             * Mark automatically-initialized elements so they are not
@@ -288,18 +328,18 @@
 
             // If the URL contains querystring bits, use them.
             // Otherwise, just create a set of valid params.
-            if (this.url.indexOf('?') < 0) {
+            if (this.url.indexOf('?') &lt; 0) {
                 this.url += '?';
             } else {
-                this.url += '&';
+                this.url += '&amp;';
             }
 
             // Append the initial width as a querystring parameter, and the fragment id
             this.iframe.src = this.url +
                 'initialWidth=' + width +
-                '&childId=' + this.id +
-                '&parentTitle=' + encodeURIComponent(document.title) +
-                '&parentUrl=' + encodeURIComponent(window.location.href) +
+                '&amp;childId=' + this.id +
+                '&amp;parentTitle=' + encodeURIComponent(document.title) +
+                '&amp;parentUrl=' + encodeURIComponent(window.location.href) +
                 hash;
 
             // Set some attributes to this proto-iframe.
@@ -312,11 +352,11 @@
                 this.iframe.setAttribute('title', this.settings.title);
             }
 
-            if (this.settings.allowfullscreen !== undefined && this.settings.allowfullscreen !== false) {
+            if (this.settings.allowfullscreen !== undefined &amp;&amp; this.settings.allowfullscreen !== false) {
                 this.iframe.setAttribute('allowfullscreen','');
             }
 
-            if (this.settings.sandbox !== undefined && typeof this.settings.sandbox === 'string') {
+            if (this.settings.sandbox !== undefined &amp;&amp; typeof this.settings.sandbox === 'string') {
                 this.iframe.setAttribute('sandbox', this.settings.sandbox);
             }
 
@@ -363,7 +403,7 @@
          */
         this._fire = function(messageType, message) {
             if (messageType in this.messageHandlers) {
-                for (var i = 0; i < this.messageHandlers[messageType].length; i++) {
+                for (var i = 0; i &lt; this.messageHandlers[messageType].length; i++) {
                    this.messageHandlers[messageType][i].call(this, message);
                 }
             }
@@ -681,7 +721,7 @@
              * Fire all event handlers for a given message type.
              */
             if (messageType in this.messageHandlers) {
-                for (var i = 0; i < this.messageHandlers[messageType].length; i++) {
+                for (var i = 0; i &lt; this.messageHandlers[messageType].length; i++) {
                    this.messageHandlers[messageType][i].call(this, message);
                 }
             }
@@ -865,7 +905,7 @@
           }catch(e) {
             newClassForHtml = "embedded";
           }
-          if(originalHtmlClasses.indexOf(newClassForHtml) < 0) {
+          if(originalHtmlClasses.indexOf(newClassForHtml) &lt; 0) {
             htmlElement.className = originalHtmlClasses + newClassForHtml;
             if(onMarkedEmbeddedStatus){
               onMarkedEmbeddedStatus(newClassForHtml);
@@ -942,3 +982,22 @@
     return lib;
 });
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Oct 01 2016 11:06:42 GMT-0400 (EDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

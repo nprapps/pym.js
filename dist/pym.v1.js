@@ -1,4 +1,4 @@
-/*! pym.js - v1.1.0 - 2016-09-15 */
+/*! pym.js - v1.1.1 - 2016-10-01 */
 /*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -86,7 +86,7 @@
      * @param {String} id The unique id of the message recipient.
      */
     var _makeMessageRegex = function(id) {
-        var bits = ['pym', id, '(\\S+)', '(.+)'];
+        var bits = ['pym', id, '(\\S+)', '(.*)'];
 
         return new RegExp('^' + bits.join(MESSAGE_DELIMITER) + '$');
     };
@@ -653,6 +653,7 @@
          * @param {module:pym.Child~onMessageCallback} callback The callback to invoke when a message of the given type is received.
          */
         this.onMessage = function(messageType, callback) {
+
             if (!(messageType in this.messageHandlers)) {
                 this.messageHandlers[messageType] = [];
             }
@@ -894,7 +895,7 @@
 
         // Identify what ID the parent knows this child as.
         this.id = _getParameterByName('childId') || config.id;
-        this.messageRegex = new RegExp('^pym' + MESSAGE_DELIMITER + this.id + MESSAGE_DELIMITER + '(\\S+)' + MESSAGE_DELIMITER + '(.+)$');
+        this.messageRegex = new RegExp('^pym' + MESSAGE_DELIMITER + this.id + MESSAGE_DELIMITER + '(\\S+)' + MESSAGE_DELIMITER + '(.*)$');
 
         // Get the initial width from a URL parameter.
         var width = parseInt(_getParameterByName('initialWidth'));
