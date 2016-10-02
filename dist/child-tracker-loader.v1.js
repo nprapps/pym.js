@@ -1,4 +1,4 @@
-/*! child-tracker-loader.js - v1.1.0 - 2016-10-01 */
+/*! child-tracker-loader.js - v1.1.1 - 2016-10-01 */
 /*
 * debates-loader.js is a wrapper library that deals with particular CMS scenarios to successfully load Pym.js and required tracking code
 * into a given page. To find out more about Pym.js check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -50,13 +50,7 @@
         // TODO: Improve hack
         // Ignore events to empty embeds, keeps listening after unloading the page
         if (this.el.getElementsByTagName('iframe').length !== 0) {
-            if (id) {
-                this.sendMessage('visibility-available', id);
-            } else {
-                // work around issue with falsy values on pym messaging
-                // https://github.com/nprapps/pym.js/issues/132
-                this.sendMessage('visibility-available', "0");
-            }
+            this.sendMessage('visibility-available', id);
         }
     };
 

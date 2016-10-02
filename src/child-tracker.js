@@ -117,7 +117,10 @@
         }
 
         var sendRectRequest = function() {
-            pymParent.sendMessage('request-client-rect', this.id);
+            // Ignore events to empty embeds, keeps listening after unloading the page
+            if (pymParent.el.getElementsByTagName('iframe').length !== 0) {
+                pymParent.sendMessage('request-client-rect', this.id);
+            }
         };
 
         function isElementInViewport(rect) {
@@ -158,7 +161,10 @@
 
             if (!this.isVisible && newVisibility) {
                 timer.start();
-                pymParent.sendMessage('fact-check-visible', this.id);
+                // Ignore events to empty embeds, keeps listening after unloading the page
+                if (pymParent.el.getElementsByTagName('iframe').length !== 0) {
+                    pymParent.sendMessage('fact-check-visible', this.id);
+                }
 
                 // @KLUDGE This is a pretty ugly bit of code that sends a second rectrequest
                 // before the "read" timer has expired to force a check to see if an annotation

@@ -49,13 +49,7 @@
         // TODO: Improve hack
         // Ignore events to empty embeds, keeps listening after unloading the page
         if (this.el.getElementsByTagName('iframe').length !== 0) {
-            if (id) {
-                this.sendMessage('visibility-available', id);
-            } else {
-                // work around issue with falsy values on pym messaging
-                // https://github.com/nprapps/pym.js/issues/132
-                this.sendMessage('visibility-available', "0");
-            }
+            this.sendMessage('visibility-available', id);
         }
     };
 
