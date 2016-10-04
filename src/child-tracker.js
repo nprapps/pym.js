@@ -132,8 +132,8 @@
             var vWidth   = window.innerWidth || document.documentElement.clientWidth;
             var vHeight  = window.innerHeight || document.documentElement.clientHeight;
 
-            var verticalScroll = Math.abs(iframeRect.top) + vHeight;
-            var realBottom = rect.top + (rect.bottom - rect.top);
+            var verticalScroll = vHeight - iframeRect.top;
+            var realBottom = rect.bottom;
             var bottomBound = realBottom + vHeight;
 
             // Track partial visibility.
