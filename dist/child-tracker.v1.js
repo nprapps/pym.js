@@ -1,4 +1,4 @@
-/*! child-tracker.js - v1.1.1 - 2016-10-03 */
+/*! child-tracker.js - v1.1.1 - 2016-10-06 */
 /** @module ChildTracker */
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
@@ -133,8 +133,8 @@
             var vWidth   = window.innerWidth || document.documentElement.clientWidth;
             var vHeight  = window.innerHeight || document.documentElement.clientHeight;
 
-            var verticalScroll = Math.abs(iframeRect.top) + vHeight;
-            var realBottom = rect.top + (rect.bottom - rect.top);
+            var verticalScroll = vHeight - iframeRect.top;
+            var realBottom = rect.bottom;
             var bottomBound = realBottom + vHeight;
 
             // Track partial visibility.
