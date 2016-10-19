@@ -38,6 +38,20 @@
     };
 
     /**
+    * Listen to resize events and send the viewport height
+    * to the child to allow for finer navigation
+    *
+    * @method onResize
+    * @instance
+    */
+    var sendViewportHeight = function() {
+        var height = window.innerHeight || document.documentElement.clientHeight;
+        if (this.el.getElementsByTagName('iframe').length !== 0) {
+            this.sendMessage('viewport-height', height);
+        }
+    };
+
+    /**
     * Function called from the child to test if the parent has visibility tracker
     * enabled to allow for fallback options
     *
@@ -113,6 +127,9 @@
                 pymParent.onMessage('test-visibility-tracker', onTestVisibilityTracker);
                 pymParent.onMessage('remove-tracker', onRemoveTracker);
                 pymParent.onMessage('new-fact-check', onNewFactCheck.bind(pymParent, local_tracker));
+                pymParent.onMessage('get-viewport-height', sendViewportHeight);
+                // Check for resize and send updated viewport height to the child
+                window.addEventListener('resize', sendViewportHeight.bind(pymParent));
             })(idx);
         }
     };
