@@ -91,7 +91,7 @@
     *
     * @param {String} id The id of the element in the child to track
     */
-    var onNewFactCheck = function(local_tracker, id) {
+    var onRequestTracking = function(local_tracker, id) {
         // Config to override default timing parameters on the visibility tracker
         //
         //    WAIT_TO_ENSURE_SCROLLING_IS_DONE: 40,
@@ -126,7 +126,7 @@
                 pymParent.trackers = {};
                 pymParent.onMessage('test-visibility-tracker', onTestVisibilityTracker);
                 pymParent.onMessage('remove-tracker', onRemoveTracker);
-                pymParent.onMessage('new-fact-check', onNewFactCheck.bind(pymParent, local_tracker));
+                pymParent.onMessage('request-tracking', onRequestTracking.bind(pymParent, local_tracker));
                 pymParent.onMessage('get-viewport-height', sendViewportHeight);
                 // Check for resize and send updated viewport height to the child
                 window.addEventListener('resize', sendViewportHeight.bind(pymParent));

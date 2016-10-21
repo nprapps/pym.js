@@ -1,4 +1,4 @@
-/*! child-tracker-loader.js - v1.1.1 - 2016-10-19 */
+/*! child-tracker-loader.js - v2.0.0 - 2016-10-21 */
 /*
 * debates-loader.js is a wrapper library that deals with particular CMS scenarios to successfully load Pym.js and required tracking code
 * into a given page. To find out more about Pym.js check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -92,7 +92,7 @@
     *
     * @param {String} id The id of the element in the child to track
     */
-    var onNewFactCheck = function(local_tracker, id) {
+    var onRequestTracking = function(local_tracker, id) {
         // Config to override default timing parameters on the visibility tracker
         //
         //    WAIT_TO_ENSURE_SCROLLING_IS_DONE: 40,
@@ -127,7 +127,7 @@
                 pymParent.trackers = {};
                 pymParent.onMessage('test-visibility-tracker', onTestVisibilityTracker);
                 pymParent.onMessage('remove-tracker', onRemoveTracker);
-                pymParent.onMessage('new-fact-check', onNewFactCheck.bind(pymParent, local_tracker));
+                pymParent.onMessage('request-tracking', onRequestTracking.bind(pymParent, local_tracker));
                 pymParent.onMessage('get-viewport-height', sendViewportHeight);
                 // Check for resize and send updated viewport height to the child
                 window.addEventListener('resize', sendViewportHeight.bind(pymParent));
@@ -251,7 +251,7 @@
     /* Check for local testing, if the replacement has not been done yet on the build process */
     if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = '../../src/pym.js'; }
 
-    var trackerUrl = "//carebot.nprapps.org/child-tracker.v1.min.js";
+    var trackerUrl = "//carebot.nprapps.org/child-tracker.v2.min.js";
     /* Check for local testing, if the replacement has not been done yet on the build process */
     if (trackerUrl.lastIndexOf('@@', 0) === 0) { trackerUrl = '../../src/child-tracker.js'; }
 

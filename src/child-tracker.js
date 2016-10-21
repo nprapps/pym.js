@@ -119,7 +119,7 @@
         var sendRectRequest = function() {
             // Ignore events to empty embeds, keeps listening after unloading the page
             if (pymParent.el.getElementsByTagName('iframe').length !== 0) {
-                pymParent.sendMessage('request-client-rect', this.id);
+                pymParent.sendMessage('request-bounding-client-rect', this.id);
             }
         };
 
@@ -154,7 +154,7 @@
 
         function checkIfVisible(rect) {
             var newVisibility = isElementInViewport(rect);
-            // Stop timer if annotation is out of viewport now
+            // Stop timer if element is out of viewport now
             if (this.isVisible && !newVisibility) {
                 timer.stop();
             }
@@ -163,17 +163,18 @@
                 timer.start();
                 // Ignore events to empty embeds, keeps listening after unloading the page
                 if (pymParent.el.getElementsByTagName('iframe').length !== 0) {
-                    pymParent.sendMessage('fact-check-visible', this.id);
+                    pymParent.sendMessage('element-visible', this.id);
                 }
 
                 // @KLUDGE This is a pretty ugly bit of code that sends a second rectrequest
-                // before the "read" timer has expired to force a check to see if an annotation
-                // is still in the viewport. If isn't, the timer is reset until the annotation
+                // before the "read" timer has expired to force a check to see if the element
+                // is still in the viewport. If isn't, the timer is reset until the element
                 // appears in the viewport again.
                 setTimeout(sendRectRequest.bind(this), this.settings.ANIMATION_DURATION);
             }
 
             this.isVisible = newVisibility;
+            this.rect = rect;
             return this.isVisible;
         }
 
@@ -196,7 +197,7 @@
             addEventListener('resize', handler, false);
         }
 
-        pymParent.onMessage(this.id + '-rect-return', function(rect) {
+        pymParent.onMessage(this.id + '-bounding-client-rect-return', function(rect) {
             var rectObj = _parseRect(rect);
             checkIfVisible.call(this, rectObj);
         }.bind(this));

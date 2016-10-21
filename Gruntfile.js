@@ -72,7 +72,7 @@ module.exports = function(grunt) {
             },
             {
               match: 'defaultTrackerUrl',
-              replacement: '//carebot.nprapps.org/child-tracker.v1.min.js'
+              replacement: '//carebot.nprapps.org/child-tracker.v2.min.js'
             }
           ]
         },
@@ -112,19 +112,19 @@ module.exports = function(grunt) {
       },
       tracker: {
         options: {
-          banner: '/*! child-tracker.js - v<%= pkg.version %> - ' +
+          banner: '/*! child-tracker.js - v2.0.0 - ' +
                   '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         src: ['src/child-tracker.js'],
-        dest: 'dist/child-tracker.v<%= pkg.version[0] %>.js'
+        dest: 'dist/child-tracker.v2.js'
       },
       tracker_loader: {
         options: {
-          banner: '/*! child-tracker-loader.js - v<%= pkg.version %> - ' +
+          banner: '/*! child-tracker-loader.js - v2.0.0 - ' +
                   '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         src: ['build/child-tracker-loader.js'],
-        dest: 'dist/child-tracker-loader.v<%= pkg.version[0] %>.js'
+        dest: 'dist/child-tracker-loader.v2.js'
       },
     },
     karma: {
@@ -162,20 +162,20 @@ module.exports = function(grunt) {
       },
       tracker: {
         options: {
-          banner: '/*! child-tracker.js - v<%= pkg.version %> - ' +
+          banner: '/*! child-tracker.js - v2.0.0 - ' +
                   '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         files: {
-          'dist/child-tracker.v<%= pkg.version[0] %>.min.js': ['dist/child-tracker.v<%= pkg.version[0] %>.js']
+          'dist/child-tracker.v2.min.js': ['dist/child-tracker.v2.js']
         }
       },
       tracker_loader: {
         options: {
-          banner: '/*! child-tracker-loader.js - v<%= pkg.version %> - ' +
+          banner: '/*! child-tracker-loader.js - v2.0.0 - ' +
                   '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         files: {
-          'dist/child-tracker-loader.v<%= pkg.version[0] %>.min.js': ['dist/child-tracker-loader.v<%= pkg.version[0] %>.js']
+          'dist/child-tracker-loader.v2.min.js': ['dist/child-tracker-loader.v2.js']
         }
       }
     },
