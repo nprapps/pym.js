@@ -1,4 +1,4 @@
-/*! pym.js - v1.1.1 - 2016-10-01 */
+/*! pym.js - v1.1.1 - 2016-10-24 */
 /*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -153,7 +153,7 @@
             // List of data attributes to configure the component
             // structure: {'attribute name': 'type'}
             var settings = {'xdomain': 'string', 'title': 'string', 'name': 'string', 'id': 'string',
-                              'sandbox': 'string', 'allowfullscreen': 'boolean'};
+                              'sandbox': 'string', 'allowfullscreen': 'boolean', 'parenturl': 'string'};
 
             var config = {};
 
@@ -299,7 +299,7 @@
                 'initialWidth=' + width +
                 '&childId=' + this.id +
                 '&parentTitle=' + encodeURIComponent(document.title) +
-                '&parentUrl=' + encodeURIComponent(window.location.href) +
+                '&parentUrl=' + encodeURIComponent((this.settings.parenturl !== undefined)? this.settings.parenturl : window.location.href) +
                 hash;
 
             // Set some attributes to this proto-iframe.

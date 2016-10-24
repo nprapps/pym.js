@@ -152,7 +152,7 @@
             // List of data attributes to configure the component
             // structure: {'attribute name': 'type'}
             var settings = {'xdomain': 'string', 'title': 'string', 'name': 'string', 'id': 'string',
-                              'sandbox': 'string', 'allowfullscreen': 'boolean'};
+                              'sandbox': 'string', 'allowfullscreen': 'boolean', 'parenturl': 'string'};
 
             var config = {};
 
@@ -298,7 +298,7 @@
                 'initialWidth=' + width +
                 '&childId=' + this.id +
                 '&parentTitle=' + encodeURIComponent(document.title) +
-                '&parentUrl=' + encodeURIComponent(window.location.href) +
+                '&parentUrl=' + encodeURIComponent((this.settings.parenturl !== undefined)? this.settings.parenturl : window.location.href) +
                 hash;
 
             // Set some attributes to this proto-iframe.
