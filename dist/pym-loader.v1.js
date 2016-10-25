@@ -1,4 +1,4 @@
-/*! pym-loader.js - v1.1.1 - 2016-10-01 */
+/*! pym-loader.js - v1.1.2 - 2016-10-25 */
 /*
 * pym-loader.js is a wrapper library that deals with particular CMS scenarios to successfully load Pym.js into a given page
 * To find out more about Pym.js check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.

@@ -866,7 +866,7 @@
             newClassForHtml = "embedded";
           }
           if(originalHtmlClasses.indexOf(newClassForHtml) < 0) {
-            htmlElement.className = originalHtmlClasses + newClassForHtml;
+            htmlElement.className = originalHtmlClasses ? originalHtmlClasses + ' ' + newClassForHtml : newClassForHtml;
             if(onMarkedEmbeddedStatus){
               onMarkedEmbeddedStatus(newClassForHtml);
             }
