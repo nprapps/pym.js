@@ -1,4 +1,4 @@
-/*! child-tracker-loader.js - v2.0.0 - 2016-10-21 */
+/*! child-tracker-loader.js - v2.0.0 - 2016-11-01 */
 /*
 * debates-loader.js is a wrapper library that deals with particular CMS scenarios to successfully load Pym.js and required tracking code
 * into a given page. To find out more about Pym.js check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -82,6 +82,25 @@
         delete this.trackers[id];
     };
 
+    /**
+    * Function called from the child to update the parent title to show a counter
+    * of the new unseen posts like twitter does
+    *
+    * @method onUpdateTitle
+    * @instance
+    */
+    var onUpdateTitle = function(update) {
+        update = +update;
+        var m = /\((\d+)\)(.*)/.exec(document.title);
+        if (m) {
+            var cnt = +m[1];
+            cnt = update ? cnt + update : update;
+            document.title = cnt > 0 ? '(' + cnt + ')'+ m[2] : m[2].trim();
+        } else if (update > 0) {
+            document.title = '('+update+') ' + document.title;
+        }
+    };
+
 
     /**
     * Function fired from the child through pym messaging in order to add a new element
@@ -129,6 +148,7 @@
                 pymParent.onMessage('remove-tracker', onRemoveTracker);
                 pymParent.onMessage('request-tracking', onRequestTracking.bind(pymParent, local_tracker));
                 pymParent.onMessage('get-viewport-height', sendViewportHeight);
+                pymParent.onMessage('update-parent-title', onUpdateTitle);
                 // Check for resize and send updated viewport height to the child
                 window.addEventListener('resize', sendViewportHeight.bind(pymParent));
             })(idx);

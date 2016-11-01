@@ -1,4 +1,4 @@
-/*! child-tracker.js - v2.0.0 - 2016-10-21 */
+/*! child-tracker.js - v2.0.0 - 2016-11-01 */
 /** @module ChildTracker */
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
