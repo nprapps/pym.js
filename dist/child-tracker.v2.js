@@ -1,4 +1,4 @@
-/*! child-tracker.js - v2.0.0 - 2016-11-01 */
+/*! child-tracker.js - v2.0.0 - 2016-11-05 */
 /** @module ChildTracker */
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
@@ -87,9 +87,10 @@
          * @inner
          */
         this.settings = {
-            WAIT_TO_ENSURE_SCROLLING_IS_DONE: 40,
+            WAIT_TO_ENSURE_SCROLLING_IS_DONE: 400,
             WAIT_TO_MARK_READ: 500,
-            ANIMATION_DURATION: 800
+            ANIMATION_DURATION: 800,
+            ALLOW_PARTIAL: true,
         };
 
         this.id = id;
@@ -124,7 +125,7 @@
             }
         };
 
-        function isElementInViewport(rect) {
+        function isElementInViewport(rect, partial) {
             // Adapted from http://stackoverflow.com/a/15203639/117014
             //
             // Returns true only if the WHOLE element is in the viewport
@@ -133,28 +134,34 @@
             var vWidth   = window.innerWidth || document.documentElement.clientWidth;
             var vHeight  = window.innerHeight || document.documentElement.clientHeight;
 
-            var verticalScroll = vHeight - iframeRect.top;
-            var realBottom = rect.bottom;
-            var bottomBound = realBottom + vHeight;
-
-            // Track partial visibility.
-            var leftSideIsToRightOfWindow = rect.left > vWidth;
-            var rightSideIsToLeftOfWindow = rect.right < 0;
-            var topIsBelowVisibleWindow = rect.top > verticalScroll;
-            var bottomIsAboveVisibleWindow = verticalScroll > bottomBound || realBottom > verticalScroll;
-
-            if (leftSideIsToRightOfWindow  ||
-                rightSideIsToLeftOfWindow ||
-                topIsBelowVisibleWindow   ||
-                bottomIsAboveVisibleWindow) {
-                return false;
+            // Track partial visibility
+            if (partial) {
+                // For partial visibility
+                //   Vertically: -rect.bottom <= iframeRect.top <= vHeight - rect.top
+                //   Horizontally: -rect.right <= iframeRect.left <= vWidth - rect.left
+                if ((iframeRect.top <= vHeight - rect.top &&
+                     iframeRect.top >= -rect.bottom) &&
+                    (iframeRect.left <= vWidth - rect.left &&
+                     iframeRect.left >= -rect.right)) {
+                        return true;
+                }
             }
 
-            return true;
+            // Track complete visibility
+            // For complete visibility
+            //   Vertically: -rect.top <= iframeRect.top <= vHeight - rect.bottom
+            //   Horizontally: -rect.left <= iframeRect.left <= vWidth - rect.right
+            if ((iframeRect.top <= vHeight - rect.bottom &&
+                 iframeRect.top >= -rect.top) &&
+                (iframeRect.left <= vWidth - rect.right &&
+                 iframeRect.left >= -rect.left)) {
+                    return true;
+            }
+            return false;
         }
 
         function checkIfVisible(rect) {
-            var newVisibility = isElementInViewport(rect);
+            var newVisibility = isElementInViewport(rect, this.settings.ALLOW_PARTIAL);
             // Stop timer if element is out of viewport now
             if (this.isVisible && !newVisibility) {
                 timer.stop();
@@ -166,12 +173,6 @@
                 if (pymParent.el.getElementsByTagName('iframe').length !== 0) {
                     pymParent.sendMessage('element-visible', this.id);
                 }
-
-                // @KLUDGE This is a pretty ugly bit of code that sends a second rectrequest
-                // before the "read" timer has expired to force a check to see if the element
-                // is still in the viewport. If isn't, the timer is reset until the element
-                // appears in the viewport again.
-                setTimeout(sendRectRequest.bind(this), this.settings.ANIMATION_DURATION);
             }
 
             this.isVisible = newVisibility;
@@ -188,6 +189,8 @@
                 removeEventListener('scroll', handler, false);
                 removeEventListener('resize', handler, false);
             }
+            //Remove event handler for this id from pymParent
+            delete pymParent.messageHandlers[this.id + '-bounding-client-rect-return'];
         };
 
         // Listen to different window movement events
