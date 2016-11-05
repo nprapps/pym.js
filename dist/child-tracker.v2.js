@@ -87,10 +87,10 @@
          * @inner
          */
         this.settings = {
-            WAIT_TO_ENSURE_SCROLLING_IS_DONE: 400,
+            WAIT_TO_ENSURE_SCROLLING_IS_DONE: 40,
             WAIT_TO_MARK_READ: 500,
             ANIMATION_DURATION: 800,
-            ALLOW_PARTIAL: true,
+            ALLOW_PARTIAL: true
         };
 
         this.id = id;
