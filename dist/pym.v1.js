@@ -1,4 +1,4 @@
-/*! pym.js - v1.1.2 - 2016-10-25 */
+/*! pym.js - v1.1.2 - 2016-12-10 */
 /*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -341,6 +341,30 @@
         };
 
         /**
+         * Registers an existing iFrame with srcdoc content
+         *
+         * @memberof Parent.prototype
+         * @method _constructIframe
+         */
+         this._srcdocIframe = function() {
+             
+             this.iframe = this.el.getElementsByTagName('iframe')[0];
+ 
+             // Set some attributes to this proto-iframe.
+             this.iframe.setAttribute('width', '100%');
+             this.iframe.setAttribute('scrolling', 'no');
+             this.iframe.setAttribute('marginheight', '0');
+             this.iframe.setAttribute('frameborder', '0');
+ 
+             if (this.settings.title) {
+                 this.iframe.setAttribute('title', this.settings.title);
+             }
+ 
+             // Add an event listener that will handle redrawing the child on resize.
+             window.addEventListener('resize', this._onResize);
+         };
+ 
+         /**
          * Send width on resize.
          *
          * @memberof module:pym.Parent
@@ -547,8 +571,12 @@
         // Add a listener for processing messages from the child.
         window.addEventListener('message', this._processMessage, false);
 
-        // Construct the iframe in the container element.
-        this._constructIframe();
+        // Construct the iframe in the container element or register existing iFrame.
+        if (typeof config.srcdoc === 'undefined' || config.srcdoc === false) {
+            this._constructIframe();
+        } else {
+            this._srcdocIframe();
+        }
 
         return this;
     };
@@ -897,13 +925,13 @@
         this.messageRegex = new RegExp('^pym' + MESSAGE_DELIMITER + this.id + MESSAGE_DELIMITER + '(\\S+)' + MESSAGE_DELIMITER + '(.*)$');
 
         // Get the initial width from a URL parameter.
-        var width = parseInt(_getParameterByName('initialWidth'));
+        var width = parseInt(_getParameterByName('initialWidth')) || config.width;
 
         // Get the url of the parent frame
-        this.parentUrl = _getParameterByName('parentUrl');
+        this.parentUrl = _getParameterByName('parentUrl') || config.url;
 
         // Get the title of the parent frame
-        this.parentTitle = _getParameterByName('parentTitle');
+        this.parentTitle = _getParameterByName('parentTitle') || config.title;
 
         // Bind the required message handlers
         this.onMessage('width', this._onWidthMessage);
