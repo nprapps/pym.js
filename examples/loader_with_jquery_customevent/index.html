@@ -10,5 +10,15 @@
     <div data-pym-src="child.html" id="example"></div>
     <script src="js/lib/jquery.js" type="text/javascript"></script>
     <script type="text/javascript" src="../../src/pym-loader.js"></script>
+    <script>
+        document.addEventListener('pym-loader:pym-loaded', function (e) {
+            console.log("pym-loaded event fired on " + e.target);
+            console.log(pym)
+        }, false);
+        document.addEventListener('pym:pym-initialized', function (e) {
+            console.log("pym-initialized event fired on " + e.target);
+            console.log(pym.autoInitInstances.length)
+        }, false);
+    </script>
 </body>
 </html>

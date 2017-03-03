@@ -10,8 +10,10 @@
     <div id="example"></div>
     <script type="text/javascript" src="../../src/pym.js"></script>
     <script>
+        // if we use a custom parenturl param name we need to also configure
+        // ptm.Child to receive the same custom param
         var parent = new pym.Parent('example', 'child.html',
-                                    { name: 'name_id', id:'test_id' });
+                       {parenturlparam: 'test'});
     </script>
 </body>
 </html>
