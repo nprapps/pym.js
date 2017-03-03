@@ -27,11 +27,12 @@
     *
     * @param {String} pym Pym.js loaded library.
     */
-    var initializePym = function(pym) {
+    var initializePym = function(pym, ignoreEvent) {
         if(pym) {
-            _raiseCustomEvent("pym-initializing");
+            if (!ignoreEvent) {
+                _raiseCustomEvent("pym-loaded");
+            }
             pym.autoInit();
-            _raiseCustomEvent("pym-initialized");
             return true;
         }
         return false;
@@ -122,7 +123,7 @@
 
     var pymUrl = "@@defaultPymUrl";
     /* Check for local testing, if the replacement has not been done yet on the build process */
-    if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = '//pym.nprapps.org/pym.v1.min.js'; }
+    if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = 'https://pym.nprapps.org/pym.v1.min.js'; }
     tryLoadingWithRequirejs(pymUrl) || tryLoadingWithJQuery(pymUrl) || loadPymViaEmbedding(pymUrl);
 
     /**
@@ -134,7 +135,7 @@
     var pageLoaded = function() {
         document.removeEventListener("DOMContentLoaded", pageLoaded);
         window.removeEventListener("load", pageLoaded);
-        return initializePym(window.pym);
+        return initializePym(window.pym, true);
     };
 
     // Listen to page load events to account for pjax load and sync issues
