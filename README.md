@@ -1,7 +1,7 @@
 Pym.js
 ======
 
-[![Build Status](https://travis-ci.org/nprapps/pym.js.svg?branch=hearken-and-tests)](https://travis-ci.org/nprapps/pym.js)
+[![Build Status](https://travis-ci.org/nprapps/pym.js.svg?branch=master)](https://travis-ci.org/nprapps/pym.js)
 [![Sauce Test Status](https://saucelabs.com/buildstatus/jjelosua)](https://saucelabs.com/u/jjelosua)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/jjelosua.svg)](https://saucelabs.com/u/jjelosua)
@@ -31,7 +31,7 @@ Use case: The NPR Visuals team uses Pym.js to embed small custom bits of code (c
 
 ## [&rsaquo; Read the documentation](http://blog.apps.npr.org/pym.js/)
 
-## [&rsaquo; Browse the API](http://blog.apps.npr.org/pym.js/api/pym.js/1.1.2/)
+## [&rsaquo; Browse the API](http://blog.apps.npr.org/pym.js/api/pym.js/1.2.0/)
 
 Assumptions
 -----------

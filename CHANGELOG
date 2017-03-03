@@ -1,3 +1,12 @@
+1.2.0
+-----
+
+* Send custom events when pym is loaded & initialized (#142)
+* Make safe for universal rendering (#146)
+* Make parentUrl query param mame configurable (#120)
+* Make parentUrl query param overidable (#120)
+* Add ability to ignore optional query params through configuration (#135)
+
 1.1.2
 -----
 
