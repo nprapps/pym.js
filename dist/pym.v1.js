@@ -1,4 +1,4 @@
-/*! pym.js - v1.1.3 - 2016-11-04 */
+/*! pym.js - v1.2.0 - 2017-03-04 */
 /*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -142,7 +142,7 @@
      * @instance
      * @method autoInit
      */
-    lib.autoInit = function() {
+    lib.autoInit = function(ignoreEvent) {
         var elements = document.querySelectorAll('[data-pym-src]:not([data-pym-auto-initialized])');
         var length = elements.length;
 
@@ -167,7 +167,9 @@
             // List of data attributes to configure the component
             // structure: {'attribute name': 'type'}
             var settings = {'xdomain': 'string', 'title': 'string', 'name': 'string', 'id': 'string',
-                              'sandbox': 'string', 'allowfullscreen': 'boolean'};
+                            'sandbox': 'string', 'allowfullscreen': 'boolean',
+                            'parenturlparam': 'string', 'parenturlvalue': 'string',
+                            'optionalparams': 'boolean'};
 
             var config = {};
 
@@ -192,6 +194,10 @@
             lib.autoInitInstances.push(parent);
         }
 
+        // Fire customEvent
+        if (!ignoreEvent) {
+            _raiseCustomEvent("pym-initialized");
+        }
         // Return stored autoinitalized pym instances
         return lib.autoInitInstances;
     };
@@ -255,7 +261,10 @@
          * @inner
          */
         this.settings = {
-            xdomain: '*'
+            xdomain: '*',
+            optionalparams: true,
+            parenturlparam: 'parentUrl',
+            parenturlvalue: window.location.href
         };
         /**
          * RegularExpression to validate the received messages
@@ -308,13 +317,16 @@
                 this.url += '&';
             }
 
-            // Append the initial width as a querystring parameter, and the fragment id
-            this.iframe.src = this.url +
-                'initialWidth=' + width +
-                '&childId=' + this.id +
-                '&parentTitle=' + encodeURIComponent(document.title) +
-                '&parentUrl=' + encodeURIComponent(window.location.href) +
-                hash;
+            // Append the initial width as a querystring parameter
+            // and optional params if configured to do so
+            this.iframe.src = this.url + 'initialWidth=' + width +
+                                         '&childId=' + this.id;
+
+            if (this.settings.optionalparams) {
+                this.iframe.src += '&parentTitle=' + encodeURIComponent(document.title);
+                this.iframe.src += '&'+ this.settings.parenturlparam + '=' + encodeURIComponent(this.settings.parenturlvalue);
+            }
+            this.iframe.src +=hash;
 
             // Set some attributes to this proto-iframe.
             this.iframe.setAttribute('width', '100%');
@@ -622,7 +634,8 @@
         this.settings = {
             renderCallback: null,
             xdomain: '*',
-            polling: 0
+            polling: 0,
+            parenturlparam: 'parentUrl'
         };
 
         /**
@@ -907,6 +920,11 @@
             }
         };
 
+        // Initialize settings with overrides.
+        for (var key in config) {
+            this.settings[key] = config[key];
+        }
+
         // Identify what ID the parent knows this child as.
         this.id = _getParameterByName('childId') || config.id;
         this.messageRegex = new RegExp('^pym' + MESSAGE_DELIMITER + this.id + MESSAGE_DELIMITER + '(\\S+)' + MESSAGE_DELIMITER + '(.*)$');
@@ -915,18 +933,13 @@
         var width = parseInt(_getParameterByName('initialWidth'));
 
         // Get the url of the parent frame
-        this.parentUrl = _getParameterByName('parentUrl');
+        this.parentUrl = _getParameterByName(this.settings.parenturlparam);
 
         // Get the title of the parent frame
         this.parentTitle = _getParameterByName('parentTitle');
 
         // Bind the required message handlers
         this.onMessage('width', this._onWidthMessage);
-
-        // Initialize settings with overrides.
-        for (var key in config) {
-            this.settings[key] = config[key];
-        }
 
         // Set up a listener to handle any incoming messages.
         window.addEventListener('message', this._processMessage, false);
@@ -950,7 +963,10 @@
     };
 
     // Initialize elements with pym data attributes
-    lib.autoInit();
+    // if we are not in server configuration
+    if(typeof document !== "undefined") {
+        lib.autoInit(true);
+    }
 
     return lib;
 });
