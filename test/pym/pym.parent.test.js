@@ -40,10 +40,27 @@ describe('pymParent', function() {
             expect(pymParent.url).toEqual(url+'?');
         });
 
-        it('should be able to overwrite the xdomain property through config', function() {
+        it('should be able to overwrite properties through config', function() {
             var xdomain = '\\*\.npr\.org'
-            pymParent = new pym.Parent('parent', url, {xdomain: xdomain});
+            pymParent = new pym.Parent('parent', url, {xdomain: xdomain,
+                                                       parenturlparam: 'test',
+                                                       parenturlvalue: 'http://www'});
+            var iframe = pymParent.iframe;
             expect(pymParent.settings.xdomain).toEqual(xdomain);
+            expect(pymParent.settings.parenturlparam).toEqual('test');
+            expect(pymParent.settings.parenturlvalue).toEqual('http://www');
+            expect(iframe.src).toContain('test=http%3A%2F%2Fwww');
+
+        });
+
+        it('should be able to ignore optional params through config', function() {
+            pymParent = new pym.Parent('parent', url, {optionalparams: false,
+                                                       parenturlparams: 'test',
+                                                       parenturlvalue: 'http://www'});
+            var iframe = pymParent.iframe;
+            expect(pymParent.settings.optionalparams).toEqual(false);
+            expect(iframe.src).not.toContain('test=http%3A%2F%2Fwww');
+
         });
 
         it('should be able to add allowfullscreen attribute to iframe', function() {

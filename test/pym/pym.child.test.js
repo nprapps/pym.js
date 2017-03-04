@@ -60,6 +60,11 @@ describe('pymChild', function() {
             expect(pymChild.settings.xdomain).toEqual(xdomain);
         });
 
+        it('should be able to overwrite the parentUrl property through config', function() {
+            pymChild = new pym.Child({parenturlparam: 'test' });
+            expect(pymChild.settings.parenturlparam).toEqual('test');
+        });
+
         it('should execute callback if passed through config', function() {
 
             var render = function(w) {
