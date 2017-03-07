@@ -62,6 +62,7 @@ The project contains the following folders and important files:
 * ``Gruntfile.js`` -- [Grunt.js](http://gruntjs.com/) task runner config file
 * ``karma.conf.js`` -- [Karma](https://karma-runner.github.io/1.0/index.html) runner configuration file
 * ``karma.conf-sauce.js`` -- [Karma](https://karma-runner.github.io/1.0/index.html) runner configuration file for Sauce Labs
+* ``nprapps_tools`` -- NPR Deployment tools to the CDN
 
 Bootstrap the project
 ---------------------

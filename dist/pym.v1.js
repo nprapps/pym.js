@@ -1,4 +1,4 @@
-/*! pym.js - v1.2.0 - 2017-03-04 */
+/*! pym.js - v1.2.0 - 2017-03-07 */
 /*
 * Pym.js is library that resizes an iframe based on the width of the parent and the resulting height of the child.
 * Check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -141,8 +141,9 @@
      * Expose autoinit in case we need to call it from the outside
      * @instance
      * @method autoInit
+     * @param {Boolean} doNotRaiseEvents flag to avoid sending custom events
      */
-    lib.autoInit = function(ignoreEvent) {
+    lib.autoInit = function(doNotRaiseEvents) {
         var elements = document.querySelectorAll('[data-pym-src]:not([data-pym-auto-initialized])');
         var length = elements.length;
 
@@ -195,7 +196,7 @@
         }
 
         // Fire customEvent
-        if (!ignoreEvent) {
+        if (!doNotRaiseEvents) {
             _raiseCustomEvent("pym-initialized");
         }
         // Return stored autoinitalized pym instances
@@ -216,6 +217,9 @@
      * @param {string} [config.id] - if passed it will be assigned to the iframe id attribute
      * @param {boolean} [config.allowfullscreen] - if passed and different than false it will be assigned to the iframe allowfullscreen attribute
      * @param {string} [config.sandbox] - if passed it will be assigned to the iframe sandbox attribute (we do not validate the syntax so be careful!!)
+     * @param {string} [config.parenturlparam] - if passed it will be override the default parentUrl query string parameter name passed to the iframe src
+     * @param {string} [config.parenturlvalue] - if passed it will be override the default parentUrl query string parameter value passed to the iframe src
+     * @param {string} [config.optionalparams] - if passed and different than false it will strip the querystring params parentUrl and parentTitle passed to the iframe src
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe iFrame}
      */
     lib.Parent = function(id, url, config) {
@@ -589,6 +593,7 @@
      * @param {string} [config.xdomain='*'] - xdomain to validate messages received
      * @param {number} [config.polling=0] - polling frequency in milliseconds to send height to parent
      * @param {number} [config.id] - parent container id used when navigating the child iframe to a new page but we want to keep it responsive.
+     * @param {string} [config.parenturlparam] - if passed it will be override the default parentUrl query string parameter name expected on the iframe src
      */
     lib.Child = function(config) {
         /**

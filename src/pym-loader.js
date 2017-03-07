@@ -26,6 +26,7 @@
     * @instance
     *
     * @param {String} pym Pym.js loaded library.
+    * @param {Boolean} doNotRaiseEvents flag to avoid sending custom events
     */
     var initializePym = function(pym, doNotRaiseEvents) {
         if(pym) {
