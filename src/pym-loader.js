@@ -27,9 +27,9 @@
     *
     * @param {String} pym Pym.js loaded library.
     */
-    var initializePym = function(pym, ignoreEvent) {
+    var initializePym = function(pym, doNotRaiseEvents) {
         if(pym) {
-            if (!ignoreEvent) {
+            if (!doNotRaiseEvents) {
                 _raiseCustomEvent("pym-loaded");
             }
             pym.autoInit();

@@ -141,7 +141,7 @@
      * @instance
      * @method autoInit
      */
-    lib.autoInit = function(ignoreEvent) {
+    lib.autoInit = function(doNotRaiseEvents) {
         var elements = document.querySelectorAll('[data-pym-src]:not([data-pym-auto-initialized])');
         var length = elements.length;
 
@@ -194,7 +194,7 @@
         }
 
         // Fire customEvent
-        if (!ignoreEvent) {
+        if (!doNotRaiseEvents) {
             _raiseCustomEvent("pym-initialized");
         }
         // Return stored autoinitalized pym instances
