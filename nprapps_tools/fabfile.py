@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(LOG_LEVEL)
 S3_BUCKET = 'pym.nprapps.org'
 GZIP_FILE_TYPES = ['*.js']
-DEFAULT_MAX_AGE = 3600
+DEFAULT_MAX_AGE = 604800
 
 
 def prep_bool_arg(arg):
