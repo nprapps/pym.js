@@ -1,7 +1,7 @@
 {
   "name": "pym.js",
-  "version": "1.1.2",
-  "defaultPymUrl": "//pym.nprapps.org/pym.v1.min.js",
+  "version": "1.2.0",
+  "defaultPymUrl": "https://pym.nprapps.org/pym.v1.min.js",
   "description": "Resize an iframe responsively depending on the height of its content and the width of its container.",
   "main": "dist/pym.v1.js",
   "directories": {

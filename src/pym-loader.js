@@ -6,15 +6,33 @@
 /** @module pym-loader */
 (function(requirejs, jQuery) {
     /**
+    * Create and dispatch a custom pym-loader event
+    *
+    * @method _raiseCustomEvent
+    * @inner
+    *
+    * @param {String} eventName
+    */
+   var _raiseCustomEvent = function(eventName) {
+     var event = document.createEvent('Event');
+     event.initEvent('pym-loader:' + eventName, true, true);
+     document.dispatchEvent(event);
+   };
+
+    /**
     * Initialize pym instances if Pym.js itself is available
     *
     * @method initializePym
     * @instance
     *
     * @param {String} pym Pym.js loaded library.
+    * @param {Boolean} doNotRaiseEvents flag to avoid sending custom events
     */
-    var initializePym = function(pym) {
+    var initializePym = function(pym, doNotRaiseEvents) {
         if(pym) {
+            if (!doNotRaiseEvents) {
+                _raiseCustomEvent("pym-loaded");
+            }
             pym.autoInit();
             return true;
         }
@@ -105,8 +123,8 @@
     };
 
     var pymUrl = "@@defaultPymUrl";
-    /* Check for local testing, if the replacement has not been done yet on the build process */
-    if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = '//pym.nprapps.org/pym.v1.min.js'; }
+    /* Check for karma local testing, if the replacement has not been done yet on the build process */
+    if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = '/base/src/pym.js'; }
     tryLoadingWithRequirejs(pymUrl) || tryLoadingWithJQuery(pymUrl) || loadPymViaEmbedding(pymUrl);
 
     /**
@@ -118,7 +136,7 @@
     var pageLoaded = function() {
         document.removeEventListener("DOMContentLoaded", pageLoaded);
         window.removeEventListener("load", pageLoaded);
-        return initializePym(window.pym);
+        return initializePym(window.pym, true);
     };
 
     // Listen to page load events to account for pjax load and sync issues

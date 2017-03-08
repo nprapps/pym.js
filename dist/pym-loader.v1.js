@@ -1,4 +1,4 @@
-/*! pym-loader.js - v1.1.2 - 2016-10-25 */
+/*! pym-loader.js - v1.2.0 - 2017-03-08 */
 /*
 * pym-loader.js is a wrapper library that deals with particular CMS scenarios to successfully load Pym.js into a given page
 * To find out more about Pym.js check out the docs at http://blog.apps.npr.org/pym.js/ or the readme at README.md for usage.
@@ -7,15 +7,33 @@
 /** @module pym-loader */
 (function(requirejs, jQuery) {
     /**
+    * Create and dispatch a custom pym-loader event
+    *
+    * @method _raiseCustomEvent
+    * @inner
+    *
+    * @param {String} eventName
+    */
+   var _raiseCustomEvent = function(eventName) {
+     var event = document.createEvent('Event');
+     event.initEvent('pym-loader:' + eventName, true, true);
+     document.dispatchEvent(event);
+   };
+
+    /**
     * Initialize pym instances if Pym.js itself is available
     *
     * @method initializePym
     * @instance
     *
     * @param {String} pym Pym.js loaded library.
+    * @param {Boolean} doNotRaiseEvents flag to avoid sending custom events
     */
-    var initializePym = function(pym) {
+    var initializePym = function(pym, doNotRaiseEvents) {
         if(pym) {
+            if (!doNotRaiseEvents) {
+                _raiseCustomEvent("pym-loaded");
+            }
             pym.autoInit();
             return true;
         }
@@ -105,9 +123,9 @@
         head.appendChild(script);
     };
 
-    var pymUrl = "//pym.nprapps.org/pym.v1.min.js";
-    /* Check for local testing, if the replacement has not been done yet on the build process */
-    if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = '//pym.nprapps.org/pym.v1.min.js'; }
+    var pymUrl = "https://pym.nprapps.org/pym.v1.min.js";
+    /* Check for karma local testing, if the replacement has not been done yet on the build process */
+    if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = '/base/src/pym.js'; }
     tryLoadingWithRequirejs(pymUrl) || tryLoadingWithJQuery(pymUrl) || loadPymViaEmbedding(pymUrl);
 
     /**
@@ -119,7 +137,7 @@
     var pageLoaded = function() {
         document.removeEventListener("DOMContentLoaded", pageLoaded);
         window.removeEventListener("load", pageLoaded);
-        return initializePym(window.pym);
+        return initializePym(window.pym, true);
     };
 
     // Listen to page load events to account for pjax load and sync issues

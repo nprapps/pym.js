@@ -9,6 +9,9 @@
 <body>
     <div id="example"></div>
     <script type="text/javascript" src="../../src/pym.js"></script>
-    <script>pym.Parent('example', 'child.html', { name: 'name_id', id:'test_id' });</script>
+    <script>
+        var parent = new pym.Parent('example', 'child.html',
+                                    { name: 'name_id', id:'test_id' });
+    </script>
 </body>
 </html>
