@@ -367,15 +367,15 @@ pymChild.scrollParentToChildPos(1000);
                     <ul>
                         <li><code>pym-loader:pym-loaded</code> &rarr; This event signals when the loader has finished loading <code>Pym.js</code>. You can listen to it following this example.</li>
 <pre><code>document.addEventListener('pym-loader:pym-loaded', function (e) {
-            console.log("pym-loaded event fired");
-            console.log(pym);
-        }, false);
+    console.log("pym-loaded event fired");
+    console.log(pym);
+}, false);
 </code></pre>
                         <li><code>pym:pym-initialized</code> &rarr; This event signals when <code>Pym.js</code> has finished executing its autoinitialization. You can listen to it following this example.</li>
 <pre><code>document.addEventListener('pym:pym-initialized', function (e) {
-            console.log("pym-initialized event fired);
-            console.log(pym.autoInitInstances.length);
-        }, false);
+    console.log("pym-initialized event fired);
+    console.log(pym.autoInitInstances.length);
+}, false);
 </code></pre>
                     </ul>
                 </section>
