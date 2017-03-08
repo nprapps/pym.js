@@ -378,6 +378,7 @@ pymChild.scrollParentToChildPos(1000);
 }, false);
 </code></pre>
                     </ul>
+                    <p><i>Note: <code>Pym.js</code> executes autoInit when it gets loaded on the page, since at that time <code>Pym.js</code> itself is still not reachable we do not raise the <code>pym:pym-initialized</code> event then. You can always invoke <code>pym.autoInit()</code> manually from the parent and that will always raise <code>pym:pym-initialized</code>. For example <code>pym-loader.js</code> does exactly that for convenience and compatibility with the multiple CMS configurations where <code>Pym.js</code> is used out there in the wild.</i>
                 </section>
 
                 <section id="in-the-wild">
