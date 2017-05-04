@@ -1,3 +1,8 @@
+1.2.1
+-----
+
+* Ignore events with non-string data (#151)
+
 1.2.0
 -----
 

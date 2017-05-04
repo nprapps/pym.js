@@ -68,6 +68,9 @@
             if (!e.origin.match(new RegExp(settings.xdomain + '$'))) { return; }
         }
 
+        // Ignore events that do not carry string data #151
+        if (typeof e.data !== 'string') { return; }
+
         return true;
     };
 
