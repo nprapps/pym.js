@@ -18,7 +18,8 @@ logger = logging.getLogger(__name__)
 logger.setLevel(LOG_LEVEL)
 S3_BUCKET = 'pym.nprapps.org'
 GZIP_FILE_TYPES = ['*.js']
-DEFAULT_MAX_AGE = 3600
+# DEFAULT_MAX_AGE = 604800  # One week
+DEFAULT_MAX_AGE = 86400  # One day
 
 
 def prep_bool_arg(arg):
@@ -44,6 +45,8 @@ def deploy(relpath='../dist', dryrun=False):
     dryrun = prep_bool_arg(dryrun)
     INPUT_PATH = os.path.join(cwd, relpath)
     OUTPUT_PATH = os.path.join(cwd, '../.gzip')
+    # Wipe the old .gzip folder
+    shutil.rmtree(OUTPUT_PATH, ignore_errors=True)
     # Create output files folder if needed
     if not os.path.exists(OUTPUT_PATH):
         os.makedirs(OUTPUT_PATH)
@@ -64,5 +67,5 @@ def deploy(relpath='../dist', dryrun=False):
     arg = '--include'
     for ext in GZIP_FILE_TYPES:
         command += ' %s="%s"' % (arg, ext)
-    # logger.info(command)
+    # logger.info(command)
     local(command)

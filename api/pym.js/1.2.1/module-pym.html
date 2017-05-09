@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>pym - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-pym.Child.html">Child</a><ul class='methods'><li data-type='method'><a href="module-pym.Child.html#navigateParentTo">navigateParentTo</a></li><li data-type='method'><a href="module-pym.Child.html#onMessage">onMessage</a></li><li data-type='method'><a href="module-pym.Child.html#remove">remove</a></li><li data-type='method'><a href="module-pym.Child.html#scrollParentTo">scrollParentTo</a></li><li data-type='method'><a href="module-pym.Child.html#scrollParentToChildEl">scrollParentToChildEl</a></li><li data-type='method'><a href="module-pym.Child.html#scrollParentToChildPos">scrollParentToChildPos</a></li><li data-type='method'><a href="module-pym.Child.html#sendHeight">sendHeight</a></li><li data-type='method'><a href="module-pym.Child.html#sendMessage">sendMessage</a></li><li data-type='method'><a href="module-pym.Child.html#~_fire">_fire</a></li><li data-type='method'><a href="module-pym.Child.html#~_markWhetherEmbedded">_markWhetherEmbedded</a></li><li data-type='method'><a href="module-pym.Child.html#~_onWidthMessage">_onWidthMessage</a></li><li data-type='method'><a href="module-pym.Child.html#~_processMessage">_processMessage</a></li></ul></li><li><a href="module-pym.Parent.html">Parent</a><ul class='methods'><li data-type='method'><a href="module-pym.Parent.html#onMessage">onMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#remove">remove</a></li><li data-type='method'><a href="module-pym.Parent.html#sendMessage">sendMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#sendWidth">sendWidth</a></li><li data-type='method'><a href="module-pym.Parent.html#~_constructIframe">_constructIframe</a></li><li data-type='method'><a href="module-pym.Parent.html#~_fire">_fire</a></li><li data-type='method'><a href="module-pym.Parent.html#~_onHeightMessage">_onHeightMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#~_onNavigateToMessage">_onNavigateToMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#~_onResize">_onResize</a></li><li data-type='method'><a href="module-pym.Parent.html#~_onScrollToChildPosMessage">_onScrollToChildPosMessage</a></li><li data-type='method'><a href="module-pym.Parent.html#~_processMessage">_processMessage</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-pym.html">pym</a><ul class='methods'><li data-type='method'><a href="module-pym.html#autoInit">autoInit</a></li><li data-type='method'><a href="module-pym.html#~_cleanAutoInitInstances">_cleanAutoInitInstances</a></li><li data-type='method'><a href="module-pym.html#~_getParameterByName">_getParameterByName</a></li><li data-type='method'><a href="module-pym.html#~_isSafeMessage">_isSafeMessage</a></li><li data-type='method'><a href="module-pym.html#~_makeMessage">_makeMessage</a></li><li data-type='method'><a href="module-pym.html#~_makeMessageRegex">_makeMessageRegex</a></li><li data-type='method'><a href="module-pym.html#~_raiseCustomEvent">_raiseCustomEvent</a></li></ul></li><li><a href="module-pym-loader.html">pym-loader</a><ul class='methods'><li data-type='method'><a href="module-pym-loader.html#initializePym">initializePym</a></li><li data-type='method'><a href="module-pym-loader.html#loadPymViaEmbedding">loadPymViaEmbedding</a></li><li data-type='method'><a href="module-pym-loader.html#pageLoaded">pageLoaded</a></li><li data-type='method'><a href="module-pym-loader.html#tryLoadingWithJQuery">tryLoadingWithJQuery</a></li><li data-type='method'><a href="module-pym-loader.html#tryLoadingWithRequirejs">tryLoadingWithRequirejs</a></li><li data-type='method'><a href="module-pym-loader.html#~_raiseCustomEvent">_raiseCustomEvent</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pym</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="module-pym.Child.html">Child</a></dt>
+            <dd></dd>
+        
+            <dt><a href="module-pym.Parent.html">Parent</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="autoInitInstances"><span class="type-signature"></span>autoInitInstances<span class="type-signature"> :Array</span></h4>
+
+
+
+
+<div class="description">
+    <p>Store auto initialized Pym instances for further reference</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>[]</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pym.js.html">pym.js</a>, <a href="pym.js.html#line133">line 133</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="autoInit"><span class="type-signature"></span>autoInit<span class="signature">(doNotRaiseEvents)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Initialize Pym for elements on page that have data-pym attributes.<br>Expose autoinit in case we need to call it from the outside</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>doNotRaiseEvents</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>flag to avoid sending custom events</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pym.js.html">pym.js</a>, <a href="pym.js.html#line141">line 141</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~_cleanAutoInitInstances"><span class="type-signature">(inner) </span>_cleanAutoInitInstances<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Clean autoInit Instances: those that point to contentless iframes</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pym.js.html">pym.js</a>, <a href="pym.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~_getParameterByName"><span class="type-signature">(inner) </span>_getParameterByName<span class="signature">(name)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Generic function for parsing URL params.<br>Via http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the paramter to get from the URL.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pym.js.html">pym.js</a>, <a href="pym.js.html#line35">line 35</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~_isSafeMessage"><span class="type-signature">(inner) </span>_isSafeMessage<span class="signature">(e, settings)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Check the message to make sure it comes from an acceptable xdomain.<br>Defaults to '*' but can be overriden in config.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The message event.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>settings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Configuration.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pym.js.html">pym.js</a>, <a href="pym.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~_makeMessage"><span class="type-signature">(inner) </span>_makeMessage<span class="signature">(id, messageType, message)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Construct a message to send between frames.</p>
+<p>NB: We use string-building here because JSON message passing is<br>not supported in all browsers.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The unique id of the message recipient.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>messageType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The type of message to send.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The message to send.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pym.js.html">pym.js</a>, <a href="pym.js.html#line77">line 77</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~_makeMessageRegex"><span class="type-signature">(inner) </span>_makeMessageRegex<span class="signature">(id)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Construct a regex to validate and parse messages.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The unique id of the message recipient.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pym.js.html">pym.js</a>, <a href="pym.js.html#line96">line 96</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~_raiseCustomEvent"><span class="type-signature">(inner) </span>_raiseCustomEvent<span class="signature">(eventName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Create and dispatch a custom pym event</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>eventName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pym.js.html">pym.js</a>, <a href="pym.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue May 09 2017 16:15:01 GMT-0400 (EDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
