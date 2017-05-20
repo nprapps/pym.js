@@ -293,7 +293,7 @@ pymChild.scrollParentToChildPos(1000);
                     <p>The <code>Pym.js</code> library and a small bit of javascript are injected onto the parent page. This code writes an iframe to the page in a container of your choice. <code>Pym.js</code> will actually replace the contents of the container with the newly created iframe, so it is better to use an empty container from the start to avoid surprises. The request for the iframe&rsquo;s contents includes querystring parameters for the <code>initialWidth</code>, <code>childId</code> of the child page and <code>parentUrl</code> and <code>parentTitle</code> of the parent page. The <code>initialWidth</code> allows the child to know its size immediately on load, because in iOS, the child frame can not determine its own width accurately. The <code>childId</code> allows multiple children to be embedded on the same page, each with its own communication to the parent.</p>
                     <p>The child page also includes <code>Pym.js</code> and its own javascript. It initializes cross-iframe communication to the parent, renders any dynamic content and then sends the computed height of the child to the parent via <code>postMessage</code>. Upon receiving this message the parent resizes the containing iframe, thus ensuring the contents of the child are always visible.</p>
                     <p>The parent page also registers for resize events. Any time one is received, the parent sends the new container width to each child via <code>postMessage</code>. The child re-renders its content and sends back the new height.</p>
-                    <p class="note">Extra parameters can be passed to the parent (<code>title</code>, <code>id</code>, <code>name</code>, ...) through a config object that would then be applied as attributes to the generated iFrame. This is a varying list so it is better to check the <a href="./api/pym.js/1.0.0/">API documentation</a> for an up-to-date detailed list</p>
+                    <p class="note">Extra parameters can be passed to the parent (<code>title</code>, <code>id</code>, <code>name</code>, ...) through a config object that would then be applied as attributes to the generated iFrame. This is a varying list so it is better to check the <a href="./api/pym.js/1.2.2/">API documentation</a> for an up-to-date detailed list</p>
                 </section>
 
                 <section id="auto">
@@ -308,7 +308,7 @@ pymChild.scrollParentToChildPos(1000);
 &lt;script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
 </code></pre>
 
-                    <p>Starting on <code>v1.1.0</code> you can pass configuration parameters as HTML data attributes by just prefixing the parent configuration parameter with <code>data-pym-</code>. To check all the available parent configuration parameters check the API documentation <a href="./api/pym.js/1.1.2/module-pym.Parent.html">here</a>
+                    <p>Starting on <code>v1.1.0</code> you can pass configuration parameters as HTML data attributes by just prefixing the parent configuration parameter with <code>data-pym-</code>. To check all the available parent configuration parameters check the API documentation <a href="./api/pym.js/1.2.2/module-pym.Parent.html">here</a>
 
 <pre><code>&lt;div data-pym-src="child.html" data-pym-allowfullscreen&gt;Loading&lt;/div&gt;
 &lt;script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
