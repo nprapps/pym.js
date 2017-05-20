@@ -123,8 +123,11 @@
     };
 
     var pymUrl = "@@defaultPymUrl";
+    // @ifdef ENV='production'
+    // remove local test code
     /* Check for karma local testing, if the replacement has not been done yet on the build process */
     if (pymUrl.lastIndexOf('@@', 0) === 0) { pymUrl = '/base/src/pym.js'; }
+    // @endif
     tryLoadingWithRequirejs(pymUrl) || tryLoadingWithJQuery(pymUrl) || loadPymViaEmbedding(pymUrl);
 
     /**

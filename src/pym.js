@@ -163,7 +163,7 @@
 
             // Ensure elements have an id
             if (element.id === '') {
-                element.id = 'pym-' + idx;
+                element.id = 'pym-' + idx + "-" + Math.random().toString(36).substr(2,5);
             }
 
             var src = element.getAttribute('data-pym-src');
