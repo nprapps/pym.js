@@ -1,3 +1,8 @@
+1.2.2
+-----
+
+* Fix autoInit id generation with randomization when autoInit is called multiple times
+
 1.2.1
 -----
 

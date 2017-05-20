@@ -67,12 +67,17 @@ module.exports = function(grunt) {
       options: {
         context : {
           // Comment if we want autoinit to be stripped out
-          AUTOINIT: true
+          AUTOINIT: true,
+          ENV: 'production'
         }
       },
       pym : {
         src : 'src/pym.js',
         dest : 'build/pym.js'
+      },
+      loader : {
+        src : 'build/pym-loader.js',
+        dest : 'build/pym-loader.js'
       },
     },
     concat: {
