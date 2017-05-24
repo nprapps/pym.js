@@ -37,7 +37,7 @@ describe('pymChild', function() {
     };
 
     beforeEach(function() {
-        document.body.style.height = height+"px";
+        document.documentElement.style.height = height+"px";
         document.body.innerHTML = __html__['test/html-fixtures/child_template.html'];
         spyOn(stub, 'callback').and.callThrough();
     });

@@ -813,7 +813,7 @@
          */
         this.sendHeight = function() {
             // Get the child's height.
-            var height = document.getElementsByTagName('body')[0].offsetHeight.toString();
+            var height = document.documentElement.offsetHeight.toString();
 
             // Send the height to the parent.
             this.sendMessage('height', height);
@@ -979,4 +979,3 @@
 
     return lib;
 });
-
