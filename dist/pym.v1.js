@@ -122,7 +122,7 @@
     /**
     * Underscore implementation of throttle
     *
-    * @method throttle
+    * @method _throttle
     * @inner
     *
     * @param {function} func Throttled function
@@ -130,7 +130,7 @@
     * @param {object} options Throttle settings
     */
 
-    function throttle(func, wait, options) {
+    var _throttle = function(func, wait, options) {
         var context, args, result;
         var timeout = null;
         var previous = 0;
@@ -160,7 +160,7 @@
             }
             return result;
         };
-    }
+    };
 
     /**
      * Clean autoInit Instances: those that point to contentless iframes
@@ -685,7 +685,7 @@
          * @method _throttleOnScroll
          * @inner
          */
-        this._throttleOnScroll = throttle(this._onScroll.bind(this), this.settings.scrollwait);
+        this._throttleOnScroll = _throttle(this._onScroll.bind(this), this.settings.scrollwait);
 
         // Bind required message handlers
         this.onMessage('height', this._onHeightMessage);
