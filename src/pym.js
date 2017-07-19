@@ -108,6 +108,60 @@
     };
 
     /**
+    * Underscore implementation of getNow
+    *
+    * @method _getNow
+    * @inner
+    *
+    */
+    var _getNow = Date.now || function() {
+        return new Date().getTime();
+    };
+
+    /**
+    * Underscore implementation of throttle
+    *
+    * @method _throttle
+    * @inner
+    *
+    * @param {function} func Throttled function
+    * @param {number} wait Throttle wait time
+    * @param {object} options Throttle settings
+    */
+
+    var _throttle = function(func, wait, options) {
+        var context, args, result;
+        var timeout = null;
+        var previous = 0;
+        if (!options) {options = {};}
+        var later = function() {
+            previous = options.leading === false ? 0 : _getNow();
+            timeout = null;
+            result = func.apply(context, args);
+            if (!timeout) {context = args = null;}
+        };
+        return function() {
+            var now = _getNow();
+            if (!previous && options.leading === false) {previous = now;}
+            var remaining = wait - (now - previous);
+            context = this;
+            args = arguments;
+            if (remaining <= 0 || remaining > wait) {
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+                previous = now;
+                result = func.apply(context, args);
+                if (!timeout) {context = args = null;}
+            } else if (!timeout && options.trailing !== false) {
+                timeout = setTimeout(later, remaining);
+            }
+            return result;
+        };
+    };
+
+    /**
      * Clean autoInit Instances: those that point to contentless iframes
      * @method _cleanAutoInitInstances
      * @inner
@@ -172,7 +226,8 @@
             var settings = {'xdomain': 'string', 'title': 'string', 'name': 'string', 'id': 'string',
                             'sandbox': 'string', 'allowfullscreen': 'boolean',
                             'parenturlparam': 'string', 'parenturlvalue': 'string',
-                            'optionalparams': 'boolean'};
+                            'optionalparams': 'boolean', 'trackscroll': 'boolean',
+                            'scrollwait': 'number'};
 
             var config = {};
 
@@ -186,6 +241,12 @@
                     case 'string':
                        config[attribute] = element.getAttribute('data-pym-'+attribute);
                        break;
+                    case 'number':
+                        var n = Number(element.getAttribute('data-pym-'+attribute));
+                        if (!isNaN(n)) {
+                            config[attribute] = n;
+                        }
+                        break;
                     default:
                        console.err('unrecognized attribute type');
                   }
@@ -222,6 +283,8 @@
      * @param {string} [config.parenturlparam] - if passed it will be override the default parentUrl query string parameter name passed to the iframe src
      * @param {string} [config.parenturlvalue] - if passed it will be override the default parentUrl query string parameter value passed to the iframe src
      * @param {string} [config.optionalparams] - if passed and different than false it will strip the querystring params parentUrl and parentTitle passed to the iframe src
+     * @param {boolean} [config.trackscroll] - if passed it will activate scroll tracking on the parent
+     * @param {number} [config.scrollwait] - if passed it will set the throttle wait in order to fire scroll messaging. Defaults to 100 ms.
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe iFrame}
      */
     lib.Parent = function(id, url, config) {
@@ -270,7 +333,9 @@
             xdomain: '*',
             optionalparams: true,
             parenturlparam: 'parentUrl',
-            parenturlvalue: window.location.href
+            parenturlvalue: window.location.href,
+            trackscroll: false,
+            scrollwait: 100,
         };
         /**
          * RegularExpression to validate the received messages
@@ -370,6 +435,11 @@
 
             // Add an event listener that will handle redrawing the child on resize.
             window.addEventListener('resize', this._onResize);
+
+            // Add an event listener that will send the child the viewport.
+            if (this.settings.trackscroll) {
+                window.addEventListener('scroll', this._throttleOnScroll);
+            }
         };
 
         /**
@@ -381,6 +451,20 @@
          */
         this._onResize = function() {
             this.sendWidth();
+            if (this.settings.trackscroll) {
+                this.sendViewportAndIFramePosition();
+            }
+        }.bind(this);
+
+        /**
+         * Send viewport and iframe info on scroll.
+         *
+         * @memberof module:pym.Parent
+         * @method _onScroll
+         * @inner
+         */
+        this._onScroll = function() {
+            this.sendViewportAndIFramePosition();
         }.bind(this);
 
         /**
@@ -566,10 +650,41 @@
             this.sendMessage('width', width);
         };
 
+        /**
+         * Transmit the current viewport and iframe position to the child.
+         * Sends viewport width, viewport height
+         * and iframe bounding rect top-left-bottom-right
+         * all separated by spaces
+         *
+         * You shouldn't need to call this directly.
+         *
+         * @memberof module:pym.Parent
+         * @method sendViewportAndIFramePosition
+         * @instance
+         */
+        this.sendViewportAndIFramePosition = function() {
+            var iframeRect = this.iframe.getBoundingClientRect();
+            var vWidth   = window.innerWidth || document.documentElement.clientWidth;
+            var vHeight  = window.innerHeight || document.documentElement.clientHeight;
+            var payload = vWidth + ' ' + vHeight;
+            payload += ' ' + iframeRect.top + ' ' + iframeRect.left;
+            payload += ' ' + iframeRect.bottom + ' ' + iframeRect.right;
+            this.sendMessage('viewport-iframe-position', payload);
+        };
+
         // Add any overrides to settings coming from config.
         for (var key in config) {
             this.settings[key] = config[key];
         }
+
+        /**
+         * Throttled scroll function.
+         *
+         * @memberof module:pym.Parent
+         * @method _throttleOnScroll
+         * @inner
+         */
+        this._throttleOnScroll = _throttle(this._onScroll.bind(this), this.settings.scrollwait);
 
         // Bind required message handlers
         this.onMessage('height', this._onHeightMessage);
