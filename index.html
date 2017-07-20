@@ -27,7 +27,7 @@
 
                     <section class="clearfix">
                         <a href="https://github.com/nprapps/pym.js/" id="view-on-github" class="button"><span>View on GitHub</span></a>
-                        <a href="./api/pym.js/1.2.2/" id="api" class="button"><span>Browse API docs</span></a>
+                        <a href="./api/pym.js/1.3.0/" id="api" class="button"><span>Browse API docs</span></a>
                         <div class="logos">
                             <a href="http://opennews.org" class="org-logo"><img src="img/opennews-logo.png"></a>
                             <a href="http://blog.apps.npr.org" class="org-logo npr"><img src="http://media.npr.org/chrome/news/nprlogo_138x46.gif"></a>
@@ -40,10 +40,12 @@
             <div class="wrapper">
                 <section id="about">
                     <h2>About Pym.js</h2>
-                    <h3>Latest version: 1.2.2 (released May. 20, 2017)</h3>
+                    <h3>Latest version: 1.3.0 (released Jul. 20, 2017)</h3>
                     <p>Using iframes in a responsive page can be frustrating. It&rsquo;s easy enough to make an iframe&rsquo;s width span 100% of its container, but sizing its height is tricky &mdash; especially if the content of the iframe changes height depending on page width (for example, because of text wrapping or media queries) or events within the iframe.</p>
                     <p>Pym.js embeds and resizes an iframe responsively (width <em>and</em> height) within its parent container. It also bypasses the usual cross-domain issues.</p>
                     <p><strong>Use case:</strong> The NPR Visuals team uses Pym.js to embed small custom bits of code (charts, maps, etc.) inside our CMS without CSS or JavaScript conflicts. <a href="http://www.npr.org/2014/03/25/293870089/maze-of-college-costs-and-aid-programs-trap-some-families">See an example of this in action.</a></p>
+
+                    <p>In version <code>1.3.0</code> we have added an optional scroll tracking support. Learn about it <a href="#optional-scroll-tracking">here</a>.</p>
                 </section>
 
                 <section id="get-pym">
@@ -293,7 +295,7 @@ pymChild.scrollParentToChildPos(1000);
                     <p>The <code>Pym.js</code> library and a small bit of javascript are injected onto the parent page. This code writes an iframe to the page in a container of your choice. <code>Pym.js</code> will actually replace the contents of the container with the newly created iframe, so it is better to use an empty container from the start to avoid surprises. The request for the iframe&rsquo;s contents includes querystring parameters for the <code>initialWidth</code>, <code>childId</code> of the child page and <code>parentUrl</code> and <code>parentTitle</code> of the parent page. The <code>initialWidth</code> allows the child to know its size immediately on load, because in iOS, the child frame can not determine its own width accurately. The <code>childId</code> allows multiple children to be embedded on the same page, each with its own communication to the parent.</p>
                     <p>The child page also includes <code>Pym.js</code> and its own javascript. It initializes cross-iframe communication to the parent, renders any dynamic content and then sends the computed height of the child to the parent via <code>postMessage</code>. Upon receiving this message the parent resizes the containing iframe, thus ensuring the contents of the child are always visible.</p>
                     <p>The parent page also registers for resize events. Any time one is received, the parent sends the new container width to each child via <code>postMessage</code>. The child re-renders its content and sends back the new height.</p>
-                    <p class="note">Extra parameters can be passed to the parent (<code>title</code>, <code>id</code>, <code>name</code>, ...) through a config object that would then be applied as attributes to the generated iFrame. This is a varying list so it is better to check the <a href="./api/pym.js/1.2.2/">API documentation</a> for an up-to-date detailed list</p>
+                    <p class="note">Extra parameters can be passed to the parent (<code>title</code>, <code>id</code>, <code>name</code>, ...) through a config object that would then be applied as attributes to the generated iFrame. This is a varying list so it is better to check the <a href="./api/pym.js/1.3.0/">API documentation</a> for an up-to-date detailed list</p>
                 </section>
 
                 <section id="auto">
@@ -308,7 +310,7 @@ pymChild.scrollParentToChildPos(1000);
 &lt;script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
 </code></pre>
 
-                    <p>Starting on <code>v1.1.0</code> you can pass configuration parameters as HTML data attributes by just prefixing the parent configuration parameter with <code>data-pym-</code>. To check all the available parent configuration parameters check the API documentation <a href="./api/pym.js/1.2.2/module-pym.Parent.html">here</a>
+                    <p>Starting on <code>v1.1.0</code> you can pass configuration parameters as HTML data attributes by just prefixing the parent configuration parameter with <code>data-pym-</code>. To check all the available parent configuration parameters check the API documentation <a href="./api/pym.js/1.3.0/module-pym.Parent.html">here</a>
 
 <pre><code>&lt;div data-pym-src="child.html" data-pym-allowfullscreen&gt;Loading&lt;/div&gt;
 &lt;script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
@@ -379,6 +381,49 @@ pymChild.scrollParentToChildPos(1000);
 </code></pre>
                     </ul>
                     <p><em>Note: <code>Pym.js</code> executes autoInit when it gets loaded on the page, since at that time <code>Pym.js</code> itself is still not reachable we do not raise the <code>pym:pym-initialized</code> event then. You can always invoke <code>pym.autoInit()</code> manually from the parent and that will always raise <code>pym:pym-initialized</code>. For example <code>pym-loader.js</code> does exactly that for convenience and compatibility with the multiple CMS configurations where <code>Pym.js</code> is used out there in the wild.</em></p>
+                </section>
+
+                <section id="optional-scroll-tracking">
+                    <h3>Pym Optional Throttled Scroll Tracking</h3>
+                    <p> Starting on <code>v1.3.0</code> we have added the option in <code>Pym.js</code> for the parent to include scroll tracking and send the viewport and iframe position to the child in a custom iframe event <code>viewport-iframe-position</code>.</p>
+                    <p>In order for <code>Pym.js</code> to add that scroll tracking you'll need to pass a config parameter to the parent.</p>
+
+<pre><code>&lt;div id="example"&gt;&lt;/div&gt;
+&lt;script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    var pymParent = new pym.Parent('example', 'child.html', {trackscroll: true});
+&lt;/script&gt;
+</code></pre>
+
+                    <p>The scroll is throttled so that we do not fire an excesive amount of messages to the child. the default throttle time is <code>100ms</code>, but you can change it if needed, like this:</p>
+
+<pre><code>&lt;div id="example"&gt;&lt;/div&gt;
+&lt;script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    var pymParent = new pym.Parent('example', 'child.html', {trackscroll: true, scrollwait: 500});
+&lt;/script&gt;
+</code></pre>
+
+                    <p>Once the <code>Pym.js</code> parent is configured to track scroll it will send a custom iframe event to the child each time the scroll changes on the parent page, the message <code>viewport-iframe-position</code> contains the following information separated by spaces:</p>
+                    <ul>
+                        <li>Viewport width and height.</li>
+                        <li>Iframe top, left, bottom and right positions.</li>
+                    </ul>
+
+                    <p>this would be the code needed on the child to listen for that information:</p>
+
+<pre><code>var pymChild = new pym.Child();
+
+pymChild.onMessage('viewport-iframe-position', onScroll);
+
+function onScroll(parentInfo) {
+    console.log(parentInfo) // would display for example: 874 776 1091 8 1673 866
+}
+</code></pre>
+
+                    <p>With that information the child has all the information needed to make the calculations on whether one of its elements is or is not on the current viewport and perform whatever action is required accordingly. (i.e. lazyload visual assets).</p>
+
+                    <p><a href="examples/trackscroll/">Here</a> you can see an example of the new scroll tracking in action. In the example we have added a small tracker library that makes the calculations needed to verify if an element is on the viewport and toggles the background of the element whenever is visible.
                 </section>
 
                 <section id="in-the-wild">
