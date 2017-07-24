@@ -947,7 +947,7 @@
         this.getParentPositionInfo = function() {
             // Send the height to the parent.
             this.sendMessage('parentPositionInfo');
-        }
+        };
 
         /**
          * Scroll parent to a given element id.
