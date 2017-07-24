@@ -31,7 +31,7 @@ Use case: The NPR Visuals team uses Pym.js to embed small custom bits of code (c
 
 ## [&rsaquo; Read the documentation](http://blog.apps.npr.org/pym.js/)
 
-## [&rsaquo; Browse the API](http://blog.apps.npr.org/pym.js/api/pym.js/1.3.0/)
+## [&rsaquo; Browse the API](http://blog.apps.npr.org/pym.js/api/pym.js/1.3.1/)
 
 Assumptions
 -----------

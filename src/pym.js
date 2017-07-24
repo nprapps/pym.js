@@ -690,6 +690,7 @@
         this.onMessage('height', this._onHeightMessage);
         this.onMessage('navigateTo', this._onNavigateToMessage);
         this.onMessage('scrollToChildPos', this._onScrollToChildPosMessage);
+        this.onMessage('parentPositionInfo', this.sendViewportAndIFramePosition);
 
         // Add a listener for processing messages from the child.
         window.addEventListener('message', this._processMessage, false);
@@ -935,6 +936,18 @@
 
             return height;
         }.bind(this);
+
+        /**
+         * Ask parent to send the current viewport and iframe position information
+         *
+         * @memberof module:pym.Child
+         * @method sendHeight
+         * @instance
+         */
+        this.getParentPositionInfo = function() {
+            // Send the height to the parent.
+            this.sendMessage('parentPositionInfo');
+        }
 
         /**
          * Scroll parent to a given element id.

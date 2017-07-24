@@ -295,5 +295,21 @@ describe('pymChild', function() {
             // Simulate a width message comming from the parent
             pymChild.scrollParentToChildPos(100);
         });
+
+        it('should send getParentPositionInfo message to parent window', function(done) {
+            // console.log("Spec: start", new Date().toLocaleTimeString());
+            var handler = function(e) {
+                if (e.data === "pymxPYMxexample3xPYMxparentPositionInfoxPYMx") {
+                    // console.log("Spec: received scrollToChildPos msg", new Date().toLocaleTimeString());
+                    stub.callback(e.data);
+                    expect(stub.callback).toHaveBeenCalledTimes(1);
+                    done();
+                }
+            };
+            pymChild = new pym.Child({id: 'example3'});
+            registerAndAddParentMessageListener(handler);
+            // Simulate a width message comming from the parent
+            pymChild.getParentPositionInfo();
+        });
     });
 });
