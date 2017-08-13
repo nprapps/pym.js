@@ -11,7 +11,9 @@
     else if (typeof module !== 'undefined' && module.exports) {
         module.exports = factory();
     } else {
+      if (typeof window.pym === 'undefined') {
         window.pym = factory.call(this);
+      }
     }
 })(function() {
     var MESSAGE_DELIMITER = 'xPYMx';
@@ -1107,4 +1109,3 @@
 
     return lib;
 });
-

@@ -1,3 +1,8 @@
+1.3.2
+-----
+
+* Don't attach pym to window if already defined.
+
 1.3.1
 -----
 
