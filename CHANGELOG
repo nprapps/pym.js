@@ -1,3 +1,8 @@
+1.3.3
+-----
+
+* Relax polling config test restrictions to account for server load
+
 1.3.2
 -----
 

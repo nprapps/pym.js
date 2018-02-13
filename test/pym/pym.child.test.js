@@ -96,7 +96,7 @@ describe('pymChild', function() {
                 // console.log("Spec: received height msg while polling", new Date().toLocaleTimeString());
                 if (e.data === "pymxPYMxxPYMxheightxPYMx"+height) stub.callback(e.data);
             };
-            pymChild = new pym.Child({polling: 200});
+            pymChild = new pym.Child({polling: 100});
             registerAndAddParentMessageListener(handler);
             setTimeout(function() {
                 // console.log("Spec: timer 1.1s has ended check results", new Date().toLocaleTimeString());
