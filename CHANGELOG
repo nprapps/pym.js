@@ -2,6 +2,7 @@
 -----
 
 * Relax polling config test restrictions to account for server load
+* Bump bower version
 
 1.3.2
 -----
