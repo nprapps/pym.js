@@ -27,7 +27,7 @@
 
                     <section class="clearfix">
                         <a href="https://github.com/nprapps/pym.js/" id="view-on-github" class="button"><span>View on GitHub</span></a>
-                        <a href="./api/pym.js/1.3.1/" id="api" class="button"><span>Browse API docs</span></a>
+                        <a href="./api/pym.js/1.3.2/" id="api" class="button"><span>Browse API docs</span></a>
                         <div class="logos">
                             <a href="http://opennews.org" class="org-logo"><img src="img/opennews-logo.png"></a>
                             <a href="http://blog.apps.npr.org" class="org-logo npr"><img src="http://media.npr.org/chrome/news/nprlogo_138x46.gif"></a>
@@ -40,7 +40,8 @@
             <div class="wrapper">
                 <section id="about">
                     <h2>About Pym.js</h2>
-                    <h3>Latest version: 1.3.1 (released Jul. 25, 2017)</h3>
+                    <h3>Latest version: 1.3.2 (released Feb. 13, 2018)</h3>
+                    <h3>RECOMMENDED UPDATE: Pym users, we’ve released an update that closes a potential security hole. We recommend everyone update to 1.3.2. The easiest way to ensure you’re constantly up-to-date is to use our CDN version, follow instructions <a href="#get-pym-cdn">here</a></h3>
                     <p>Using iframes in a responsive page can be frustrating. It&rsquo;s easy enough to make an iframe&rsquo;s width span 100% of its container, but sizing its height is tricky &mdash; especially if the content of the iframe changes height depending on page width (for example, because of text wrapping or media queries) or events within the iframe.</p>
                     <p>Pym.js embeds and resizes an iframe responsively (width <em>and</em> height) within its parent container. It also bypasses the usual cross-domain issues.</p>
                     <p><strong>Use case:</strong> The NPR Visuals team uses Pym.js to embed small custom bits of code (charts, maps, etc.) inside our CMS without CSS or JavaScript conflicts. <a href="http://www.npr.org/2014/03/25/293870089/maze-of-college-costs-and-aid-programs-trap-some-families">See an example of this in action.</a></p>
@@ -295,7 +296,7 @@ pymChild.scrollParentToChildPos(1000);
                     <p>The <code>Pym.js</code> library and a small bit of javascript are injected onto the parent page. This code writes an iframe to the page in a container of your choice. <code>Pym.js</code> will actually replace the contents of the container with the newly created iframe, so it is better to use an empty container from the start to avoid surprises. The request for the iframe&rsquo;s contents includes querystring parameters for the <code>initialWidth</code>, <code>childId</code> of the child page and <code>parentUrl</code> and <code>parentTitle</code> of the parent page. The <code>initialWidth</code> allows the child to know its size immediately on load, because in iOS, the child frame can not determine its own width accurately. The <code>childId</code> allows multiple children to be embedded on the same page, each with its own communication to the parent.</p>
                     <p>The child page also includes <code>Pym.js</code> and its own javascript. It initializes cross-iframe communication to the parent, renders any dynamic content and then sends the computed height of the child to the parent via <code>postMessage</code>. Upon receiving this message the parent resizes the containing iframe, thus ensuring the contents of the child are always visible.</p>
                     <p>The parent page also registers for resize events. Any time one is received, the parent sends the new container width to each child via <code>postMessage</code>. The child re-renders its content and sends back the new height.</p>
-                    <p class="note">Extra parameters can be passed to the parent (<code>title</code>, <code>id</code>, <code>name</code>, ...) through a config object that would then be applied as attributes to the generated iFrame. This is a varying list so it is better to check the <a href="./api/pym.js/1.3.1/">API documentation</a> for an up-to-date detailed list</p>
+                    <p class="note">Extra parameters can be passed to the parent (<code>title</code>, <code>id</code>, <code>name</code>, ...) through a config object that would then be applied as attributes to the generated iFrame. This is a varying list so it is better to check the <a href="./api/pym.js/1.3.2/">API documentation</a> for an up-to-date detailed list</p>
                 </section>
 
                 <section id="auto">
@@ -310,7 +311,7 @@ pymChild.scrollParentToChildPos(1000);
 &lt;script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
 </code></pre>
 
-                    <p>Starting on <code>v1.1.0</code> you can pass configuration parameters as HTML data attributes by just prefixing the parent configuration parameter with <code>data-pym-</code>. To check all the available parent configuration parameters check the API documentation <a href="./api/pym.js/1.3.1/module-pym.Parent.html">here</a>
+                    <p>Starting on <code>v1.1.0</code> you can pass configuration parameters as HTML data attributes by just prefixing the parent configuration parameter with <code>data-pym-</code>. To check all the available parent configuration parameters check the API documentation <a href="./api/pym.js/1.3.2/module-pym.Parent.html">here</a>
 
 <pre><code>&lt;div data-pym-src="child.html" data-pym-allowfullscreen&gt;Loading&lt;/div&gt;
 &lt;script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"&gt;&lt;/script&gt;
