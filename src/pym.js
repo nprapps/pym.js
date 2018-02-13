@@ -74,6 +74,14 @@
         return true;
     };
 
+    var _isSafeUrl = function(url) {
+        // Adapted from angular 2 url sanitizer
+        var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp):|[^&:/?#]*(?:[/?#]|$))/gi;
+        if (!url.match(SAFE_URL_PATTERN)) { return; }
+        
+        return true;
+    };
+
     /**
      * Construct a message to send between frames.
      *
@@ -566,6 +574,7 @@
             /*
              * Handle parent scroll message from child.
              */
+             if (!_isSafeUrl(message)) {return;}
             document.location.href = message;
         };
 

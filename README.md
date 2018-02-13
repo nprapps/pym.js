@@ -1,6 +1,8 @@
 Pym.js
 ======
 
+*RECOMMENDED UPDATE* : Pym users, we’ve released an update that closes a potential security hole. We recommend everyone update to 1.3.2. The easiest way to ensure you’re constantly up-to-date is to use our CDN version, follow instructions [here](http://blog.apps.npr.org/pym.js/index.html#get-pym-cdn).
+
 [![Build Status](https://travis-ci.org/nprapps/pym.js.svg?branch=master)](https://travis-ci.org/nprapps/pym.js)
 [![Sauce Test Status](https://saucelabs.com/buildstatus/jjelosua)](https://saucelabs.com/u/jjelosua)
 
@@ -31,7 +33,7 @@ Use case: The NPR Visuals team uses Pym.js to embed small custom bits of code (c
 
 ## [&rsaquo; Read the documentation](http://blog.apps.npr.org/pym.js/)
 
-## [&rsaquo; Browse the API](http://blog.apps.npr.org/pym.js/api/pym.js/1.3.1/)
+## [&rsaquo; Browse the API](http://blog.apps.npr.org/pym.js/api/pym.js/1.3.2/)
 
 Assumptions
 -----------
