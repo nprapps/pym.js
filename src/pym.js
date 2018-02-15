@@ -84,14 +84,6 @@
         return true;
     };
 
-    var _isSafeUrl = function(url) {
-        // Adapted from angular 2 url sanitizer
-        var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp):|[^&:/?#]*(?:[/?#]|$))/gi;
-        if (!url.match(SAFE_URL_PATTERN)) { return; }
-
-        return true;
-    };
-
     /**
      * Construct a message to send between frames.
      *
@@ -487,6 +479,30 @@
         };
 
         /**
+        * Registers an existing iFrame with srcdoc content
+        *
+        * @memberof Parent.prototype
+        * @method _constructIframe
+        */
+        this._srcdocIframe = function() {
+            
+            this.iframe = this.el.getElementsByTagName('iframe')[0];
+
+            // Set some attributes to this proto-iframe.
+            this.iframe.setAttribute('width', '100%');
+            this.iframe.setAttribute('scrolling', 'no');
+            this.iframe.setAttribute('marginheight', '0');
+            this.iframe.setAttribute('frameborder', '0');
+
+            if (this.settings.title) {
+                this.iframe.setAttribute('title', this.settings.title);
+            }
+
+            // Add an event listener that will handle redrawing the child on resize.
+            window.addEventListener('resize', this._onResize);
+        };
+
+        /**
          * Send width on resize.
          *
          * @memberof module:pym.Parent
@@ -610,6 +626,7 @@
             /*
              * Handle parent scroll message from child.
              */
+
              if (!_isSafeUrl(message)) {return;}
             document.location.href = message;
         };
