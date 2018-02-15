@@ -4,7 +4,7 @@
     "homepage": "http://blog.apps.npr.org/pym.js/",
     "authors": ["NPR"],
     "description": "Resize an iframe responsively depending on the height of its content and the width of its container.",
-    "main": "dist/pym.v1.js",
+    "main": "https://github.com/bbc/pym.js",
     "keywords": [
         "iframe",
         "responsive",
