@@ -29,27 +29,13 @@
     "url": "https://github.com/nprapps/pym.js/issues"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-uglify": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-express": "^1.4.1",
-    "grunt-jsdoc": "^2.1.0",
-    "grunt-karma": "^2.0.0",
-    "grunt-parallel": "^0.5.1",
-    "grunt-preprocess": "^5.1.0",
-    "grunt-replace": "^1.0.1",
-    "jasmine-core": "^2.4.1",
-    "jquery": "^3.1.0",
-    "karma": "^1.1.2",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-firefox-launcher": "^1.0.0",
-    "karma-html2js-preprocessor": "^1.0.0",
-    "karma-jasmine": "^1.0.2",
-    "karma-sauce-launcher": "^1.0.0",
-    "karma-spec-reporter": "0.0.26",
-    "minami": "^1.1.1",
-    "requirejs": "^2.2.0"
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-jsdoc": "~0.5.6"
+  },
+  "dependencies": {
+    "grunt": "^1.0.2"
   }
 }
