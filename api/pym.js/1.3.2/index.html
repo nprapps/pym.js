@@ -48,131 +48,11 @@
 
 
     <section class="readme">
-        <article><h1>Pym.js</h1><h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</h1><p><em>RECOMMENDED UPDATE</em> : Pym users, we’ve released an update that closes a potential security hole. We recommend everyone update to 1.3.2. The easiest way to ensure you’re constantly up-to-date is to use our CDN version, follow instructions <a href="http://blog.apps.npr.org/pym.js/index.html#get-pym-cdn">here</a>.</p>
-<p><a href="https://travis-ci.org/nprapps/pym.js"><img src="https://travis-ci.org/nprapps/pym.js.svg?branch=master" alt="Build Status"></a><br><a href="https://saucelabs.com/u/jjelosua"><img src="https://saucelabs.com/buildstatus/jjelosua" alt="Sauce Test Status"></a></p>
-<p><a href="https://saucelabs.com/u/jjelosua"><img src="https://saucelabs.com/browser-matrix/jjelosua.svg" alt="Sauce Test Status"></a></p>
-<ul>
-<li><a href="#what-is-this">What is this?</a></li>
-<li><a href="#assumptions">Assumptions</a></li>
-<li><a href="#whats-in-here">What's in here?</a></li>
-<li><a href="#bootstrap-the-project">Bootstrap the project</a></li>
-<li><a href="#hide-project-secrets">Hide project secrets</a></li>
-<li><a href="#run-the-project">Run the project</a></li>
-<li><a href="#test-the-project">Test the project</a></li>
-<li><a href="#build-the-project">Build the project</a></li>
-<li><a href="#versioning">Versioning</a></li>
-<li><a href="#what-is-the-loader-script-for-why-do-we-need-it">What is the loader script for? Why do we need it?</a></li>
-<li><a href="#license-and-credits">License and credits</a></li>
-<li><a href="#additional-contributors">Additional contributors</a></li>
-</ul>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>master</p>
-<h2>What is this?</h2></blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Using iframes in a responsive page can be frustrating. It&rsquo;s easy enough to make an iframe&rsquo;s width span 100% of its container, but sizing its height is tricky &mdash; especially if the content of the iframe changes height depending on page width (for example, because of text wrapping or media queries) or events within the iframe.</p>
+        <article><h1>Pym.js</h1><p><em>RECOMMENDED UPDATE</em> : Pym users, we’ve released an update that closes a potential security hole. We recommend everyone update to 1.3.2. The easiest way to ensure you’re constantly up-to-date is to use our CDN version, follow instructions <a href="http://blog.apps.npr.org/pym.js/index.html#get-pym-cdn">here</a>.</p>
+<h2>What is this?</h2><p>Using iframes in a responsive page can be frustrating. It&rsquo;s easy enough to make an iframe&rsquo;s width span 100% of its container, but sizing its height is tricky &mdash; especially if the content of the iframe changes height depending on page width (for example, because of text wrapping or media queries) or events within the iframe.</p>
 <p><a href="https://raw.githubusercontent.com/nprapps/pym.js/master/src/pym.js">Pym.js</a> embeds and resizes an iframe responsively (width and height) within its parent container. It also bypasses the usual cross-domain issues.</p>
 <p>Use case: The NPR Visuals team uses Pym.js to embed small custom bits of code (charts, maps, etc.) inside our CMS without CSS or JavaScript conflicts. <a href="http://www.npr.org/2014/03/25/293870089/maze-of-college-costs-and-aid-programs-trap-some-families">See an example of this in action.</a></p>
-<h2><a href="http://blog.apps.npr.org/pym.js/">&rsaquo; Read the documentation</a></h2><h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</h1><h2><a href="http://blog.apps.npr.org/pym.js/api/pym.js/1.3.2/">&rsaquo; Browse the API</a></h2><h2>Assumptions</h2><p>The following things are assumed to be true in this documentation.</p>
-<ul>
-<li>You are running OS X.</li>
-<li>You have installed Node.js.</li>
-<li>You have installed Grunt globally.</li>
-</ul>
-<p>For more details on the technology stack used in NPR Visuals' app template, see our <a href="http://blog.apps.npr.org/2013/06/06/how-to-setup-a-developers-environment.html">development environment blog post</a>.</p>
-<p>Modern versions of Windows and Linux should work equally well but are untested by the NPR Visuals Team.</p>
-<h2>What's in here?</h2><p>The project contains the following folders and important files:</p>
-<ul>
-<li><code>dist</code> -- Unminified and minified versions of pym.js library and the pym-loader.js loader.</li>
-<li><code>examples</code> -- Collection of working use cases for pym.js</li>
-<li><code>src</code> -- Source files for this project</li>
-<li><code>test/pym</code> -- Unit testing specs for pym.js</li>
-<li><code>test/pym-loader</code> -- Unit testing specs for pym-loader.js</li>
-<li><code>test/html</code> -- Child pages used for pym.js testing</li>
-<li><code>test/html-fixtures</code> -- HTML templates for testing loader through the htmljs karma preprocessor</li>
-<li><code>.travis.yml</code> -- <a href="https://travis-ci.org/">Travis CI</a> config file</li>
-<li><code>Gruntfile.js</code> -- <a href="http://gruntjs.com/">Grunt.js</a> task runner config file</li>
-<li><code>karma.conf.js</code> -- <a href="https://karma-runner.github.io/1.0/index.html">Karma</a> runner configuration file</li>
-<li><code>karma.conf-sauce.js</code> -- <a href="https://karma-runner.github.io/1.0/index.html">Karma</a> runner configuration file for Sauce Labs</li>
-<li><code>nprapps_tools</code> -- NPR Deployment tools to the CDN</li>
-</ul>
-<h2>Bootstrap the project</h2><p>Node.js is required. If you don't already have it, get it like this:</p>
-<pre class="prettyprint source"><code>brew install node</code></pre><p>Then bootstrap the project:</p>
-<pre class="prettyprint source"><code>npm install</code></pre><p>In order to do your own tests in Sauce Labs (<em>optional</em>) you will need to have a <a href="https://saucelabs.com/beta/login">Sauce Labs account</a> (to their credit, they have a free tier for <a href="https://saucelabs.com/open-source">open source projects</a>).</p>
-<p>Once you have an account you will need to copy the example credentials file in the <code>sauce</code> folder to the actual credentials that will be used.</p>
-<pre class="prettyprint source"><code>$ cd sauce
-$ cp sauce_cred_sample.json sauce_cred.json</code></pre><p>Edit the <code>sauce_cred.json</code> file to fill in your <em>USERNAME</em> and <em>ACCESSKEY</em> from <a href="https://saucelabs.com/beta/user-settings">user settings</a>.</p>
-<h2>Hide project secrets</h2><p>In this project the only project secrets that we have are the Sauce Labs credentials to secure a tunnel between Travis and Sauce Labs used in our continuous integration process. Those keys have been encrypted through Travis; you can read more about that process <a href="https://docs.travis-ci.com/user/encryption-keys/">here</a></p>
-<p>Project secrets should <strong>never</strong> be stored anywhere else in the repository. They will be leaked to the client if you do. Instead, always store passwords, keys, etc. in environment variables and document that they are needed here in the README.</p>
-<h2>Run the project</h2><p>In order to run pym.js the best approach is to fire up a local webserver and go to the examples to see it in action.</p>
-<p>The included server includes <code>livereload</code> so each time you change something on the <code>examples</code> or <code>src</code> folder the server will refresh the page for you.</p>
-<pre class="prettyprint source"><code>$ cd pym.js
-$ grunt server</code></pre><h2>Development tasks</h2><p>Grunt configuration is included for running common development tasks.</p>
-<p>Javascript can be linted with <a href="http://jshint.com/">jshint</a>:</p>
-<pre class="prettyprint source"><code>grunt jshint</code></pre><p>Unminified source can be regenerated with:</p>
-<pre class="prettyprint source"><code>grunt concat</code></pre><p>Minified source can be regenerated with:</p>
-<pre class="prettyprint source"><code>grunt uglify</code></pre><p>API documention can be generated with <a href="https://github.com/jsdoc3/jsdoc">jsdoc</a>:</p>
-<pre class="prettyprint source"><code>grunt jsdoc</code></pre><p>The release process is documented <a href="https://github.com/nprapps/pym.js/wiki/Release-Process">on the wiki</a>.</p>
-<h2>Test the project</h2><p>We have introduced unit testing for Pym.js starting with the 1.0.0 release. The Pym.js testing suite uses a combination of <a href="https://karma-runner.github.io/1.0/index.html">Karma</a>, <a href="http://jasmine.github.io/2.4/introduction.html">Jasmine</a> and <a href="https://saucelabs.com/">Sauce Labs</a> to improve our browser coverage (Sauce Labs provides a nice <a href="https://saucelabs.com/open-source">free tier solution for opensource projects</a>)</p>
-<h3>Test against your local browsers</h3><p><em>Requires Chrome and Firefox installed on your machine</em></p>
-<p>In order to run unit tests each time a change is detected, run:</p>
-<pre class="prettyprint source"><code>grunt test</code></pre><p>In order to run a one-off complete test suite, run:</p>
-<pre class="prettyprint source"><code>npm test</code></pre><h3>Test against Sauce Labs browsers</h3><p>First you will need to make a copy the credentials sample file <code>sauce_cred_sample.json</code>, call it <code>sauce_cred.json</code>, and update your Sauce Labs <code>USERNAME</code> and <code>ACCESSKEY</code> that you will obtain once you have set up an account with <a href="https://saucelabs.com/beta/login">Sauce Labs</a>.</p>
-<pre class="prettyprint source"><code>$ cd sauce
-$ cp sauce_cred_sample.json sauce_cred.json</code></pre><p>In order to run unit tests each time a change is detected, run:</p>
-<pre class="prettyprint source"><code>$ grunt sauce</code></pre><p>In order to run a one-off complete test suite, run:</p>
-<pre class="prettyprint source"><code>$ npm run sauce</code></pre><p>For local testing the list of browsers to use can be modified on <code>sauce/saucelabs-local-browsers.js</code>. We use <a href="https://travis-ci.org/">Travis CI</a> for our continuous integration. When Travis is invoked it will use <code>sauce/saucelabs-browsers.js</code> as the list of browsers to test on.</p>
-<p>A note around testing Pym.js on Sauce Labs, since the architecture of the tests with Travis and Sauce Labs creating <em>tunnels between VMs</em> is a bit unreliable in terms of timing in some <em>random</em> cases the response to a test case will not arrive in time and the test will fail due to a Timeout. We have tried to configure longer Timeouts for that error not to happen but still we find them during some test runs.</p>
-<p>We have decided to create a small test suite using Travis own VM capabilities to test Pym.js on Firefox and declared the build successful if those tests pass. After that in the <a href="https://docs.travis-ci.com/user/customizing-the-build#The-Build-Lifecycle">_after<em>success</em></a> section of the Travis CI configuration we launch the Sauce Labs tests but that will not affect the result of the build process.</p>
-<p>So If you see some of the Browsers in the Sauce Labs Matrix as failures that is, presumably, the reason for it. We are in contact with Sauce Labs to figure out if there's a way around this issue.</p>
-<h2>Build the project</h2><p>We use grunt tasks to build the project into the <code>dist</code> folder. Linting JS, preprocessing, uglyfing, etc.</p>
-<pre class="prettyprint source"><code>$ grunt</code></pre><p>We generate two copies of the pym and pym-loader libraries due to some really <em>tight length requirements</em> when embedding scripts in the homepage of some of our users CMSs.</p>
-<ul>
-<li><strong>p.v1.m.js is a copy/alias of pym-v1.min.js</strong></li>
-<li><strong>pl.v1.m.js is a copy/alias of pym-loader-v1.min.js</strong></li>
-</ul>
-<h2>Versioning</h2><p>Starting with <em>Pym.js v1.0.0</em>, the project follows the <a href="http://semver.org/">semantic versioning</a> pattern MAJOR.MINOR.PATCH.</p>
-<ul>
-<li>MAJOR version changes for backwards-incompatible API changes.</li>
-<li>MINOR version for new backwards-compatible functionality.</li>
-<li>PATCH version for backwards-compatible bug fixes.</li>
-</ul>
-<p>To minimize the impact on our current and future customers, on the uncompressed and on the minified production side of pym we are only going to keep the major version exposed. That we can apply <em>PATCHES</em> and <em>MINOR</em> version changes without any change being made on our customer's code but we maintain the possibility of new major releases that are somewhat disruptive with previous versions of the library.</p>
-<ul>
-<li><p>pym.v1.0.0 and pym.v1.1.1 will both end up being minified into the same pym.v1.min.js.</p>
-</li>
-<li><p>You can safely assume that pym.v1.js and pym.v1.min.js will have the <em>latest</em> version of pym in that MAJOR version.</p>
-</li>
-<li><p>The same can be said for the pym-loader. pym-loader.v1.js and pym-loader.v1.min.js will have the <em>latest</em> version of pym-loader in that MAJOR version.</p>
-</li>
-</ul>
-<p>NPR will host and serve pym.js and pym-loader.js through a canonical CDN at <code>pym.nprapps.com</code>. We recommend that you link directly there to benefit instantaneously from the patches and minor releases.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>master</p>
-<h2>What is the loader script for? Why do we need it?</h2></blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Pym.js v1.0.0 development has been driven by a change needed to extend the ability to use Pym.js in certain CMSes used by NPR member stations and other use cases found by our collaborators that broke the loading process of loading Pym.js in common cases and thus made the embeds unusable.</p>
+<h2><a href="http://blog.apps.npr.org/pym.js/">&rsaquo; Read the documentation</a></h2><h2>What is the loader script for? Why do we need it?</h2><p>Pym.js v1.0.0 development has been driven by a change needed to extend the ability to use Pym.js in certain CMSes used by NPR member stations and other use cases found by our collaborators that broke the loading process of loading Pym.js in common cases and thus made the embeds unusable.</p>
 <p>We have decided to separate the particular needs of the Pym.js loading process in these special situations into a separate script that will act wrap and load Pym.js for these cases instead of polluting the Pym.js library itself with special needs of certain CMSes.</p>
 <p>We want to keep Pym.js loading and invocation as manageable as possible. Due to the extensive use of Pym.js in many different environments, we encourage implementers to create special loaders if their integrations require it.</p>
 <h2>Credits</h2><p>Pym.js was built by the <a href="http://github.com/nprapps">NPR Visuals</a> team, based on work by the <a href="https://github.com/npr/responsiveiframe">NPR Tech Team</a> and <a href="https://github.com/ioseb">Ioseb Dzmanashvili</a>. Thanks to <a href="https://twitter.com/erikhinton">Erik Hinton</a> for suggesting the name.</p>
@@ -189,7 +69,7 @@ $ cp sauce_cred_sample.json sauce_cred.json</code></pre><p>In order to run unit 
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Feb 13 2018 11:56:51 GMT-0500 (EST) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Feb 16 2018 18:43:57 GMT-0500 (EST) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
