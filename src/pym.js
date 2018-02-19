@@ -78,7 +78,7 @@
         // Adapted from angular 2 url sanitizer
         var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp):|[^&:/?#]*(?:[/?#]|$))/gi;
         if (!url.match(SAFE_URL_PATTERN)) { return; }
-        
+
         return true;
     };
 
@@ -519,7 +519,12 @@
          * @param {Event} e A message event.
          */
         this._processMessage = function(e) {
-            // First, punt if this isn't from an acceptable xdomain.
+            // Check that the message is actually from our iframe
+            if (e.source !== this.iframe.contentWindow) {
+              return;
+            }
+
+            // Punt if this isn't from an acceptable xdomain.
             if (!_isSafeMessage(e, this.settings)) {
                 return;
             }
@@ -859,7 +864,12 @@
             /*
             * Process a new message from parent frame.
             */
-            // First, punt if this isn't from an acceptable xdomain.
+            // Check that the message is actually from the parent frame
+            if (e.source !== window.parent) {
+              return;
+            }
+
+            // Punt if this isn't from an acceptable xdomain.
             if (!_isSafeMessage(e, this.settings)) {
                 return;
             }
@@ -1116,4 +1126,3 @@
 
     return lib;
 });
-
