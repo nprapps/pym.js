@@ -520,7 +520,10 @@
          */
         this._processMessage = function(e) {
             // Check that the message is actually from our iframe
-            if (e.source !== this.iframe.contentWindow) {
+            // Use the same technique as sendMessage(), since
+            // this.iframe is apparently unreliable
+            var iframes = this.el.getElementsByTagName('iframe');
+            if (iframes.length < 1 || e.source !== iframes[0].contentWindow) {
               return;
             }
 
