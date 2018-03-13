@@ -1,6 +1,7 @@
 1.3.3
 -----
 
+* Add NPR deployment docs
 * Relax polling config test restrictions to account for server load
 * Bump bower version
 

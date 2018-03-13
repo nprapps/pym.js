@@ -16,6 +16,8 @@ Pym.js
 * [Run the project](#run-the-project)
 * [Test the project](#test-the-project)
 * [Build the project](#build-the-project)
+* [Update the project](#update-the-project)
+* [Deploy the project](#deploy-the-project)
 * [Versioning](#versioning)
 * [What is the loader script for? Why do we need it?](#what-is-the-loader-script-for-why-do-we-need-it)
 * [License and credits](#license-and-credits)
@@ -205,6 +207,49 @@ We generate two copies of the pym and pym-loader libraries due to some really _t
 
 * **p.v1.m.js is a copy/alias of pym-v1.min.js**
 * **pl.v1.m.js is a copy/alias of pym-loader-v1.min.js**
+
+Update the project
+------------------
+
+**NPR only** If a new version of pym is needed the workflow would be:
+
+* Make the needed changes on code and test it thoroughly in NPR.org and member stations test sites.
+* Change the version according following the [semantic versioning](http://semver.org/) pattern inside `package.json` and `bower.json`.
+
+We use grunt tasks to build the project into the `dist` folder. Linting JS, preprocessing, uglyfing, etc.
+
+```
+$ grunt
+```
+
+That execution will create a minified and unminified version of our custom folder on the `dist` folder.
+
+It will also generate an API documentation if you want to check that out run:
+```
+$ grunt server
+```
+
+and navigate to http://localhost:9000/api/pym.js/X.X.X/ on your browser.
+
+Where X.X.X is the actual version defined in `package.json`
+
+Deploy the project
+------------------
+
+After having build the new version of the library [see above](#update-the-project).
+
+**NPR only** If a new version of the projects is needed the workflow would be:
+
+```
+cd nprapps_tools
+mkvirtualenv pym.js
+pip install -r requirements.txt
+fab deploy
+```
+
+This will deploy whatever is inside the `dist` folder to S3 and make it available through a CDN at `https://pym.nprapps.org/`
+
+_Note: Pym.js is used widely outside of NPR so test thoroughly and use semantic versioning in order not to impact existing applications_
 
 Versioning
 ----------
